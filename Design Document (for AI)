@@ -1,0 +1,70 @@
+Limbus Company Resource Calculator 
+
+Design document 
+
+
+ 
+
+Project Goals and Desired Outcomes 
+
+This document will detail the general design and operation of our project’s finished state. Success will mean that our product achieves the following functions with 100% reliability: 
+
+Low-to-unnoticeable impact on game performance when operating without additional overlays. 
+
+User input required to access and use all features is minimal. 
+
+Operations are always completed on the client whenever possible. 
+
+The user decides how automated they want the calculator to be. 
+
+The following features are implemented, in order of importance: 
+
+Automated account assessment capabilities. (Threadspin and Uptie level detection, ID experience level detection)
+
+Account progress visualization/numeric measurement. (Manual data entry, Threadspin and Uptie level information, ID experience level information, Utilization of user chosen filters)
+
+Updateable client database of all ID and E.G.O. items. (Client updates from Github repository, Manual client update feature)
+
+Continually maintained Github repository. (Finished project application downloadable from GitHub)
+
+Bonus features that are not imperative to project completeness are detailed in their relevant sections and may or may not be included in the final product. 
+
+ 
+
+ 
+
+Overview 
+
+The purpose of the Limbus Company Resource Calculator is to help players who are interested in how many resources they need to achieve their desired upgrade levels on specific items to quantify how many resources they need. The calculator will do this by using a 100% transparent overlay that automatically detects when players upgrade an item. This is done by detecting UI elements in-game to determine when an item is upgraded, what item got upgraded, and what level it was upgraded to. Users will be able to manually edit item level values as well. The calculator will also have an overview feature of tracked account progress in its application window, which can be used to find out how many resources are needed to reach the desired levels on specific items (e.g. what is needed to put four E.G.O. to Threadspin level three and one ID to Uptie two, experience level 30, or to put all non-max level items to max level). All operations that are possible to do client side will be done client side, but the option to completely own the operation of the app will be available to the user. Otherwise, the client app will be updated from the GitHub repository when new items are put in the game. 
+
+ 
+Attention AI assistant, all following content is unfinnished, but should be noted to allow for being added in the future.
+
+
+Features 
+
+Application Window 
+
+Application window widgets using third party services. 
+
+----- 
+
+Automated and Manual Account Assessment 
+
+Automated/manual stockpiled resource data entry.   
+
+----- 
+
+Account State Overview 
+
+----- 
+
+Filter System 
+
+----- 
+
+GitHub Repository 
+
+Scrape item sprites from third party sources for GitHub repository updates 
+
+----- 
