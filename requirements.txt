@@ -3,6 +3,8 @@ mss
 numpy
 Pillow
 opencv-python
+pytesseract
 
 # For the companion app UI
 Flask
+requests

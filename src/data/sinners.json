@@ -1,0 +1,162 @@
+{
+  "sinners": [
+    {
+      "name": "Yi Sang",
+      "egos": [
+        {"id": "YI_SANG_EGO_01", "name": "Crow's Eye View"},
+        {"id": "YI_SANG_EGO_02", "name": "Bygone Days"},
+        {"id": "d_01_105", "name": "Fourth Match Flame"},
+        {"id": "t_01_53", "name": "Wishing Cairn"},
+        {"id": "YI_SANG_EGO_05", "name": "Dimension Shredder"},
+        {"id": "YI_SANG_EGO_06", "name": "Sunshower"},
+        {"id": "YI_SANG_EGO_07", "name": "Great Trichiliocosm"},
+        {"id": "YI_SANG_EGO_08", "name": "Solemn Lament"},
+        {"id": "YI_SANG_EGO_09", "name": "Fell Bullet"}
+      ]
+    },
+    {
+      "name": "Faust",
+      "egos": [
+        {"id": "r_03_101", "name": "Representation Emitter"},
+        {"id": "r_03_102", "name": "Hex Nail"},
+        {"id": "FAUST_EGO_03", "name": "9:2"},
+        {"id": "FAUST_EGO_04", "name": "Lasso"},
+        {"id": "FAUST_EGO_05", "name": "Fluid Sac"},
+        {"id": "FAUST_EGO_06", "name": "Telepole"},
+        {"id": "FAUST_EGO_07", "name": "Thoracalgia"},
+        {"id": "FAUST_EGO_08", "name": "Command: Meltdown"},
+        {"id": "FAUST_EGO_09", "name": "Everlasting"},
+        {"id": "FAUST_EGO_10", "name": "Ardor Blossom Star"},
+        {"id": "FAUST_EGO_11", "name": "Regret"}
+      ]
+    },
+    {
+      "name": "Don Quixote",
+      "egos": [
+        {"id": "DON_QUIXOTE_EGO_01", "name": "La Sangre de Sancho"},
+        {"id": "DON_QUIXOTE_EGO_02", "name": "Lifetime Stew"},
+        {"id": "DON_QUIXOTE_EGO_03", "name": "Wishing Cairn"},
+        {"id": "DON_QUIXOTE_EGO_04", "name": "Electric Screaming"},
+        {"id": "DON_QUIXOTE_EGO_05", "name": "Fluid Sac"},
+        {"id": "DON_QUIXOTE_EGO_06", "name": "Telepole"},
+        {"id": "DON_QUIXOTE_EGO_07", "name": "In the Name of Love and Hate"},
+        {"id": "DON_QUIXOTE_EGO_08", "name": "Lantern"}
+      ]
+    },
+    {
+      "name": "Ryōshū",
+      "egos": [
+        {"id": "RYOSH_EGO_01", "name": "Forest for the Flames"},
+        {"id": "RYOSH_EGO_02", "name": "Soda"},
+        {"id": "RYOSH_EGO_03", "name": "Red Eyes"},
+        {"id": "RYOSH_EGO_04", "name": "Blind Obsession"},
+        {"id": "RYOSH_EGO_05", "name": "4th Match Flame"},
+        {"id": "RYOSH_EGO_06", "name": "Red Eyes (Open)"},
+        {"id": "RYOSH_EGO_07", "name": "Contempt, Awe"},
+        {"id": "RYOSH_EGO_08", "name": "Red Eyes & Penitence"}
+      ]
+    },
+    {
+      "name": "Meursault",
+      "egos": [
+        {"id": "m_04_101", "name": "Chains of Others"},
+        {"id": "MEURSAULT_EGO_02", "name": "Screwloose Wallop"},
+        {"id": "MEURSAULT_EGO_03", "name": "Regret"},
+        {"id": "MEURSAULT_EGO_04", "name": "Electric Screaming"},
+        {"id": "MEURSAULT_EGO_05", "name": "Pursuance"},
+        {"id": "MEURSAULT_EGO_06", "name": "Capote"},
+        {"id": "MEURSAULT_EGO_07", "name": "Yearning-Mircalla"},
+        {"id": "MEURSAULT_EGO_08", "name": "Crushbound Past"}
+      ]
+    },
+    {
+      "name": "Hong Lu",
+      "egos": [
+        {"id": "HONG_LU_EGO_01", "name": "Land of Illusion"},
+        {"id": "HONG_LU_EGO_02", "name": "Roseate Desire"},
+        {"id": "HONG_LU_EGO_03", "name": "Soda"},
+        {"id": "HONG_LU_EGO_04", "name": "Cavernous Wailing"},
+        {"id": "HONG_LU_EGO_05", "name": "Dimension Shredder"},
+        {"id": "HONG_LU_EGO_06", "name": "Effervescent Corrosion"},
+        {"id": "HONG_LU_EGO_07", "name": "To Remain Oneself"},
+        {"id": "HONG_LU_EGO_08", "name": "Tears of the Tarnished Blood"}
+      ]
+    },
+    {
+      "name": "Heathcliff",
+      "egos": [
+        {"id": "HEATHCLIFF_EGO_01", "name": "Suddenly, One Day"},
+        {"id": "HEATHCLIFF_EGO_02", "name": "Legerdemain"},
+        {"id": "HEATHCLIFF_EGO_03", "name": "Lantern"},
+        {"id": "HEATHCLIFF_EGO_04", "name": "Bygone Days"},
+        {"id": "HEATHCLIFF_EGO_05", "name": "AEDD"},
+        {"id": "HEATHCLIFF_EGO_06", "name": "Solemn Lament"},
+        {"id": "HEATHCLIFF_EGO_07", "name": "Christmas Nightmare"},
+        {"id": "HEATHCLIFF_EGO_08", "name": "Garden of Thorns"},
+        {"id": "HEATHCLIFF_EGO_09", "name": "Unbrilliant Glory"},
+        {"id": "HEATHCLIFF_EGO_10", "name": "Sunshower"}
+      ]
+    },
+    {
+      "name": "Ishmael",
+      "egos": [
+        {"id": "ISHMAEL_EGO_01", "name": "Snagharpoon"},
+        {"id": "ISHMAEL_EGO_02", "name": "Hundred-Footed Death Maggot"},
+        {"id": "ISHMAEL_EGO_03", "name": "Roseate Desire"},
+        {"id": "ISHMAEL_EGO_04", "name": "Capote"},
+        {"id": "ISHMAEL_EGO_05", "name": "Bygone Days"},
+        {"id": "ISHMAEL_EGO_06", "name": "Ardor Blossom Star"},
+        {"id": "ISHMAEL_EGO_07", "name": "Wingbeat"},
+        {"id": "ISHMAEL_EGO_08", "name": "Christmas Nightmare"},
+        {"id": "ISHMAEL_EGO_09", "name": "Tidal Elegy"},
+        {"id": "ISHMAEL_EGO_10", "name": "Blind Obsession"},
+        {"id": "ISHMAEL_EGO_11", "name": "Sloshing"}
+      ]
+    },
+    {
+      "name": "Rodion",
+      "egos": [
+        {"id": "RODION_EGO_01", "name": "Branch of Knowledge"},
+        {"id": "RODION_EGO_02", "name": "Cavernous Wailing"},
+        {"id": "RODION_EGO_03", "name": "Impending Day"},
+        {"id": "RODION_EGO_04", "name": "Lifetime Stew"},
+        {"id": "RODION_EGO_05", "name": "Hex Nail"},
+        {"id": "RODION_EGO_06", "name": "Lantern"},
+        {"id": "RODION_EGO_07", "name": "9:2"},
+        {"id": "RODION_EGO_08", "name": "Tears of the Tarnished Blood"},
+        {"id": "RODION_EGO_09", "name": "The Sword Sharpened with Tears"}
+      ]
+    },
+    {
+      "name": "Sinclair",
+      "egos": [
+        {"id": "SINCLAIR_EGO_01", "name": "Red Sheet"},
+        {"id": "SINCLAIR_EGO_02", "name": "Branch of Knowledge"},
+        {"id": "SINCLAIR_EGO_03", "name": "Impending Day"},
+        {"id": "SINCLAIR_EGO_04", "name": "Lifetime Stew"},
+        {"id": "SINCLAIR_EGO_05", "name": "9:2"},
+        {"id": "SINCLAIR_EGO_06", "name": "The Sword Sharpened with Tears"}
+      ]
+    },
+    {
+      "name": "Outis",
+      "egos": [
+        {"id": "OUTIS_EGO_01", "name": "Ya Śūnyatā Tad Rūpam"},
+        {"id": "OUTIS_EGO_02", "name": "Magic Bullet"},
+        {"id": "OUTIS_EGO_03", "name": "Ebony Stem"},
+        {"id": "OUTIS_EGO_04", "name": "To Aeon"}
+      ]
+    },
+    {
+      "name": "Gregor",
+      "egos": [
+        {"id": "GREGOR_EGO_01", "name": "Suddenly, One Day"},
+        {"id": "GREGOR_EGO_02", "name": "Legerdemain"},
+        {"id": "GREGOR_EGO_03", "name": "Lantern"},
+        {"id": "GREGOR_EGO_04", "name": "Bygone Days"},
+        {"id": "GREGOR_EGO_05", "name": "AEDD"},
+        {"id": "GREGOR_EGO_06", "name": "Garden of Thorns"}
+      ]
+    }
+  ]
+}

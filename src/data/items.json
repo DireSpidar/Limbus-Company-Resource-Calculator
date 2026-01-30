@@ -1,7 +1,11 @@
 {
     "ego": [
-        {"id": "d_01_105", "name": "Fourth Match Flame", "current_uptie": 0, "max_uptie": 4},
-        {"id": "t_01_53", "name": "Wishing Cairn", "current_uptie": 0, "max_uptie": 4}
+        {"id": "d_01_105", "name": "Fourth Match Flame", "sinner": "Yi Sang", "current_uptie": 0, "max_uptie": 4, "grade": "He"},
+        {"id": "t_01_53", "name": "Wishing Cairn", "sinner": "Yi Sang", "current_uptie": 0, "max_uptie": 4, "grade": "Waw"},
+        {"id": "r_03_101", "name": "Representation Emitter", "sinner": "Faust", "current_uptie": 0, "max_uptie": 4, "grade": "Teth"},
+        {"id": "r_03_102", "name": "Hex Nail", "sinner": "Faust", "current_uptie": 0, "max_uptie": 4, "grade": "He"},
+        {"id": "d_02_105", "name": "Roseate Desire", "sinner": "Don Quixote", "current_uptie": 0, "max_uptie": 4, "grade": "He"},
+        {"id": "m_04_101", "name": "Chains of Others", "sinner": "Meursault", "current_uptie": 0, "max_uptie": 4, "grade": "He"}
     ],
     "identities": [
         {"id": "gregor_base", "sinner": "Gregor", "name": "LCB Sinner", "current_uptie": 0, "max_uptie": 4},

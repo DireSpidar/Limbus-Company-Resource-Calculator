@@ -1,0 +1,32 @@
+{
+    "ego": [
+        {
+            "id": "d_01_105",
+            "name": "Fourth Match Flame",
+            "current_uptie": 0,
+            "max_uptie": 4
+        },
+        {
+            "id": "t_01_53",
+            "name": "Wishing Cairn",
+            "current_uptie": 3,
+            "max_uptie": 4
+        }
+    ],
+    "identities": [
+        {
+            "id": "gregor_base",
+            "sinner": "Gregor",
+            "name": "LCB Sinner",
+            "current_uptie": 1,
+            "max_uptie": 4
+        },
+        {
+            "id": "yi_sang_base",
+            "sinner": "Yi Sang",
+            "name": "LCB Sinner",
+            "current_uptie": 0,
+            "max_uptie": 4
+        }
+    ]
+}
