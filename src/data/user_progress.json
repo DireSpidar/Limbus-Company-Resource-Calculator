@@ -1,16 +1,844 @@
 {
-    "ego": [
+    "E.G.O.": [
         {
-            "id": "d_01_105",
-            "name": "Fourth Match Flame",
-            "current_uptie": 0,
-            "max_uptie": 4
+            "id": "YI_SANG_EGO_01",
+            "name": "Crow's Eye View",
+            "sinner": "Yi Sang",
+            "current_uptie": 4,
+            "max_uptie": 4,
+            "grade": "Zayin"
         },
         {
-            "id": "t_01_53",
+            "id": "YI_SANG_EGO_02",
+            "name": "Bygone Days",
+            "sinner": "Yi Sang",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "YI_SANG_EGO_03",
+            "name": "4th Match Flame",
+            "sinner": "Yi Sang",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "YI_SANG_EGO_04",
             "name": "Wishing Cairn",
+            "sinner": "Yi Sang",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "YI_SANG_EGO_05",
+            "name": "Dimension Shredder",
+            "sinner": "Yi Sang",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "YI_SANG_EGO_06",
+            "name": "Fell Bullet",
+            "sinner": "Yi Sang",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "YI_SANG_EGO_07",
+            "name": "Sunshower",
+            "sinner": "Yi Sang",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "YI_SANG_EGO_08",
+            "name": "Great Trichiliocosm",
+            "sinner": "Yi Sang",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "FAUST_EGO_01",
+            "name": "Representation Emitter",
+            "sinner": "Faust",
+            "current_uptie": 4,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "FAUST_EGO_02",
+            "name": "Hex Nail",
+            "sinner": "Faust",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "FAUST_EGO_03",
+            "name": "9:2",
+            "sinner": "Faust",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "FAUST_EGO_04",
+            "name": "Lasso",
+            "sinner": "Faust",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "FAUST_EGO_05",
+            "name": "Fluid Sac",
+            "sinner": "Faust",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "FAUST_EGO_06",
+            "name": "Telepole",
+            "sinner": "Faust",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "FAUST_EGO_07",
+            "name": "Thoracalgia",
+            "sinner": "Faust",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "FAUST_EGO_08",
+            "name": "Command: Meltdown",
+            "sinner": "Faust",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "FAUST_EGO_09",
+            "name": "Everlasting",
+            "sinner": "Faust",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "DON_QUIXOTE_EGO_01",
+            "name": "La Sangre de Sancho",
+            "sinner": "Don Quixote",
             "current_uptie": 3,
-            "max_uptie": 4
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "DON_QUIXOTE_EGO_02",
+            "name": "Lifetime Stew",
+            "sinner": "Don Quixote",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "DON_QUIXOTE_EGO_03",
+            "name": "Wishing Cairn",
+            "sinner": "Don Quixote",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "DON_QUIXOTE_EGO_04",
+            "name": "Electric Screaming",
+            "sinner": "Don Quixote",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "DON_QUIXOTE_EGO_05",
+            "name": "Fluid Sac",
+            "sinner": "Don Quixote",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "DON_QUIXOTE_EGO_06",
+            "name": "Telepole",
+            "sinner": "Don Quixote",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "DON_QUIXOTE_EGO_07",
+            "name": "Red Sheet",
+            "sinner": "Don Quixote",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "DON_QUIXOTE_EGO_08",
+            "name": "Yearning-Mircalla",
+            "sinner": "Don Quixote",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "DON_QUIXOTE_EGO_09",
+            "name": "In the Name of Love and Hate",
+            "sinner": "Don Quixote",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "RYOSH_EGO_01",
+            "name": "Forest for the Flames",
+            "sinner": "Ry\u014dsh\u016b",
+            "current_uptie": 2,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "RYOSH_EGO_02",
+            "name": "Soda",
+            "sinner": "Ry\u014dsh\u016b",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "RYOSH_EGO_03",
+            "name": "Red Eyes",
+            "sinner": "Ry\u014dsh\u016b",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "RYOSH_EGO_04",
+            "name": "Blind Obsession",
+            "sinner": "Ry\u014dsh\u016b",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "RYOSH_EGO_05",
+            "name": "4th Match Flame",
+            "sinner": "Ry\u014dsh\u016b",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "RYOSH_EGO_06",
+            "name": "Red Eyes (Open)",
+            "sinner": "Ry\u014dsh\u016b",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "RYOSH_EGO_07",
+            "name": "Thoracalgia",
+            "sinner": "Ry\u014dsh\u016b",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "RYOSH_EGO_08",
+            "name": "Contempt, Awe",
+            "sinner": "Ry\u014dsh\u016b",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "RYOSH_EGO_09",
+            "name": "Great Trichiliocosm",
+            "sinner": "Ry\u014dsh\u016b",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "MEURSAULT_EGO_01",
+            "name": "Chains of Others",
+            "sinner": "Meursault",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "MEURSAULT_EGO_02",
+            "name": "Screwloose Wallop",
+            "sinner": "Meursault",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "MEURSAULT_EGO_03",
+            "name": "Regret",
+            "sinner": "Meursault",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "MEURSAULT_EGO_04",
+            "name": "Electric Screaming",
+            "sinner": "Meursault",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "MEURSAULT_EGO_05",
+            "name": "Pursuance",
+            "sinner": "Meursault",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "MEURSAULT_EGO_06",
+            "name": "Capote",
+            "sinner": "Meursault",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "MEURSAULT_EGO_07",
+            "name": "Yearning-Mircalla",
+            "sinner": "Meursault",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "MEURSAULT_EGO_08",
+            "name": "Crushbound Past",
+            "sinner": "Meursault",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "HONG_LU_EGO_01",
+            "name": "Land of Illusion",
+            "sinner": "Hong Lu",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "HONG_LU_EGO_02",
+            "name": "Roseate Desire",
+            "sinner": "Hong Lu",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "HONG_LU_EGO_03",
+            "name": "Soda",
+            "sinner": "Hong Lu",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "HONG_LU_EGO_04",
+            "name": "Cavernous Wailing",
+            "sinner": "Hong Lu",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "HONG_LU_EGO_05",
+            "name": "Lasso",
+            "sinner": "Hong Lu",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "HONG_LU_EGO_06",
+            "name": "Dimension Shredder",
+            "sinner": "Hong Lu",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "HONG_LU_EGO_07",
+            "name": "Effervescent Corrosion",
+            "sinner": "Hong Lu",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "HONG_LU_EGO_08",
+            "name": "To Remain Oneself",
+            "sinner": "Hong Lu",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "HONG_LU_EGO_09",
+            "name": "Tears of the Tarnished Blood",
+            "sinner": "Hong Lu",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "HEATHCLIFF_EGO_01",
+            "name": "Bodysack",
+            "sinner": "Heathcliff",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "HEATHCLIFF_EGO_02",
+            "name": "Holiday",
+            "sinner": "Heathcliff",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "HEATHCLIFF_EGO_03",
+            "name": "AEDD",
+            "sinner": "Heathcliff",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "HEATHCLIFF_EGO_04",
+            "name": "Fell Bullet",
+            "sinner": "Heathcliff",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "HEATHCLIFF_EGO_05",
+            "name": "Move-in Reg.",
+            "sinner": "Heathcliff",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "HEATHCLIFF_EGO_06",
+            "name": "Telepole",
+            "sinner": "Heathcliff",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "HEATHCLIFF_EGO_07",
+            "name": "Ya \u015a\u016bnyat\u0101 Tad R\u016bpam",
+            "sinner": "Heathcliff",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "HEATHCLIFF_EGO_08",
+            "name": "Asymmetrical Inertia",
+            "sinner": "Heathcliff",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "HEATHCLIFF_EGO_09",
+            "name": "Binds",
+            "sinner": "Heathcliff",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "ISHMAEL_EGO_01",
+            "name": "Snagharpoon",
+            "sinner": "Ishmael",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "ISHMAEL_EGO_02",
+            "name": "Hundred-Footed Death Maggot",
+            "sinner": "Ishmael",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "ISHMAEL_EGO_03",
+            "name": "Roseate Desire",
+            "sinner": "Ishmael",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "ISHMAEL_EGO_04",
+            "name": "Capote",
+            "sinner": "Ishmael",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "ISHMAEL_EGO_05",
+            "name": "Bygone Days",
+            "sinner": "Ishmael",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "ISHMAEL_EGO_06",
+            "name": "Ardor Blossom Star",
+            "sinner": "Ishmael",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "ISHMAEL_EGO_07",
+            "name": "Wingbeat",
+            "sinner": "Ishmael",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "ISHMAEL_EGO_08",
+            "name": "Christmas Nightmare",
+            "sinner": "Ishmael",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "ISHMAEL_EGO_09",
+            "name": "Tidal Elegy",
+            "sinner": "Ishmael",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "ISHMAEL_EGO_10",
+            "name": "Blind Obsession",
+            "sinner": "Ishmael",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "RODION_EGO_01",
+            "name": "What is Cast",
+            "sinner": "Rodion",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "RODION_EGO_02",
+            "name": "Rime Shank",
+            "sinner": "Rodion",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "RODION_EGO_03",
+            "name": "Effervescent Corrosion",
+            "sinner": "Rodion",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "RODION_EGO_04",
+            "name": "4th Match Flame",
+            "sinner": "Rodion",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "RODION_EGO_05",
+            "name": "Pursuance",
+            "sinner": "Rodion",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "RODION_EGO_06",
+            "name": "Hex Nail",
+            "sinner": "Rodion",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "RODION_EGO_07",
+            "name": "Sanguine Desire",
+            "sinner": "Rodion",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "RODION_EGO_08",
+            "name": "Indicant's Trial",
+            "sinner": "Rodion",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "SINCLAIR_EGO_01",
+            "name": "Branch of Knowledge",
+            "sinner": "Sinclair",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "SINCLAIR_EGO_02",
+            "name": "Cavernous Wailing",
+            "sinner": "Sinclair",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "SINCLAIR_EGO_03",
+            "name": "Impending Day",
+            "sinner": "Sinclair",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "SINCLAIR_EGO_04",
+            "name": "Lifetime Stew",
+            "sinner": "Sinclair",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "SINCLAIR_EGO_05",
+            "name": "Hex Nail",
+            "sinner": "Sinclair",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "SINCLAIR_EGO_06",
+            "name": "Lantern",
+            "sinner": "Sinclair",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "SINCLAIR_EGO_07",
+            "name": "9:2",
+            "sinner": "Sinclair",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "SINCLAIR_EGO_08",
+            "name": "Tears of the Tarnished Blood",
+            "sinner": "Sinclair",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "OUTIS_EGO_01",
+            "name": "To P\u00e1thos M\u00e1thos",
+            "sinner": "Outis",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "OUTIS_EGO_02",
+            "name": "I'll Go fer Scissors. How 'Bout You?",
+            "sinner": "Outis",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "OUTIS_EGO_03",
+            "name": "Ya \u015a\u016bnyat\u0101 Tad R\u016bpam",
+            "sinner": "Outis",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "OUTIS_EGO_04",
+            "name": "Sunshower",
+            "sinner": "Outis",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "OUTIS_EGO_05",
+            "name": "Ebony Stem",
+            "sinner": "Outis",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "OUTIS_EGO_06",
+            "name": "Holiday",
+            "sinner": "Outis",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "OUTIS_EGO_07",
+            "name": "Dimension Shredder",
+            "sinner": "Outis",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "OUTIS_EGO_08",
+            "name": "Magic Bullet",
+            "sinner": "Outis",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "OUTIS_EGO_09",
+            "name": "Binds",
+            "sinner": "Outis",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "GREGOR_EGO_01",
+            "name": "Suddenly, One Day",
+            "sinner": "Gregor",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "GREGOR_EGO_02",
+            "name": "Legerdemain",
+            "sinner": "Gregor",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Zayin"
+        },
+        {
+            "id": "GREGOR_EGO_03",
+            "name": "Lantern",
+            "sinner": "Gregor",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "GREGOR_EGO_04",
+            "name": "Bygone Days",
+            "sinner": "Gregor",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Teth"
+        },
+        {
+            "id": "GREGOR_EGO_05",
+            "name": "AEDD",
+            "sinner": "Gregor",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "GREGOR_EGO_06",
+            "name": "Solemn Lament",
+            "sinner": "Gregor",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "GREGOR_EGO_07",
+            "name": "Christmas Nightmare",
+            "sinner": "Gregor",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "He"
+        },
+        {
+            "id": "GREGOR_EGO_08",
+            "name": "Garden of Thorns",
+            "sinner": "Gregor",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
+        },
+        {
+            "id": "GREGOR_EGO_09",
+            "name": "Unbrilliant Glory",
+            "sinner": "Gregor",
+            "current_uptie": 0,
+            "max_uptie": 4,
+            "grade": "Waw"
         }
     ],
     "identities": [
@@ -18,7 +846,7 @@
             "id": "gregor_base",
             "sinner": "Gregor",
             "name": "LCB Sinner",
-            "current_uptie": 1,
+            "current_uptie": 0,
             "max_uptie": 4
         },
         {

@@ -10,15 +10,16 @@
         .banner form { display: inline; }
         .banner input[type="submit"] { background-color: #0056b3; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
         .container { background-color: white; padding: 2em; margin: 2em auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); max-width: 800px; }
-        h1, h2, h3 { color: #343a40; }
+        h1, h2 { color: #343a40; }
         hr { border: 0; height: 1px; background-color: #e9ecef; margin: 2em 0; }
         .progress-bar-container { width: 100%; background-color: #e9ecef; border-radius: 4px; }
         .progress-bar { height: 24px; background-color: #28a745; text-align: center; color: white; line-height: 24px; border-radius: 4px; transition: width 0.4s ease-in-out; }
         .form-group { margin-bottom: 1rem; }
         label { display: block; margin-bottom: .5rem; font-weight: 500; }
-        select, input[type="number"], input[type="submit"] { width: 100%; padding: .5rem; margin-top: .25rem; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; }
-        input[type="submit"] { background-color: #007bff; color: white; cursor: pointer; border: none; font-size: 1rem; }
-        input[type="submit"]:hover { background-color: #0056b3; }
+        select, input[type="number"] { width: 100%; padding: .5rem; margin-top: .25rem; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; }
+        /* Removed submit button styling as it's being removed */
+        /* input[type="submit"] { background-color: #007bff; color: white; cursor: pointer; border: none; font-size: 1rem; }
+        input[type="submit"]:hover { background-color: #0056b3; } */
         ul { list-style-type: none; padding: 0; }
         li { background-color: #f8f9fa; padding: 10px; border-radius: 4px; margin-bottom: 5px; }
         .toggle-switch { display: flex; border: 1px solid #ced4da; border-radius: 4px; overflow: hidden; }
@@ -39,12 +40,12 @@
         <hr>
 
         <h2>Manually Update E.G.O. Level</h2>
-        <form action="{{ url_for('update_ego_level') }}" method="post">
+        <form id="egoUpdateForm" action="{{ url_for('update_ego_level') }}" method="post">
             <div class="form-group">
                 <label for="sinner">Sinner:</label>
                 <select id="sinner" name="sinner" required>
                     <option value="">-- Select a Sinner --</option>
-                    {% for sinner in sinners.sinners %}
+                    {% for sinner in all_sinners_data.sinners %}
                         <option value="{{ sinner.name }}">{{ sinner.name }}</option>
                     {% endfor %}
                 </select>
@@ -65,7 +66,7 @@
                     <input type="radio" id="level4" name="new_level" value="4"><label for="level4">4</label>
                 </div>
             </div>
-            <input type="submit" value="Update E.G.O. Level">
+            <!-- Removed submit button -->
         </form>
 
         <hr>
@@ -81,23 +82,127 @@
             {% endfor %}
         };
 
+        const egoProgressData = {
+            {% for ego in ego_display_data %}
+                "{{ ego.id }}": { "current_uptie": {{ ego.current_uptie }} }{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        };
+
         const sinnerSelect = document.getElementById('sinner');
         const egoSelect = document.getElementById('ego');
+        const levelRadios = document.querySelectorAll('input[name="new_level"]');
+        const egoUpdateForm = document.getElementById('egoUpdateForm'); // Get the form element
 
-        sinnerSelect.addEventListener('change', function() {
-            const selectedSinner = this.value;
-            const egos = sinnerEgoMap[selectedSinner] || [];
+        // Function to set selected radio button based on level
+        function setLevelRadio(level) {
+            levelRadios.forEach(radio => {
+                if (parseInt(radio.value) === level) {
+                    radio.checked = true;
+                } else {
+                    radio.checked = false;
+                }
+            });
+        }
+
+        // Function to update EGO dropdown and set current level
+        function updateEgoDropdown(selectedSinnerId, selectedEgoId) {
+            const egos = sinnerEgoMap[selectedSinnerId] || [];
 
             // Clear previous options
             egoSelect.innerHTML = '<option value="">-- Select an E.G.O. --</option>';
 
-            // Add new options
             egos.forEach(function(ego) {
                 const option = document.createElement('option');
-                option.value = ego.id; // Use ego.id for the value
-                option.textContent = ego.name; // Use ego.name for the display text
+                option.value = ego.id;
+                option.textContent = ego.name;
                 egoSelect.appendChild(option);
             });
+
+            // Restore selected EGO if available
+            if (selectedEgoId) {
+                egoSelect.value = selectedEgoId;
+                // Manually trigger change to update radio button
+                if (egoSelect.value === selectedEgoId) { // Ensure value is actually set before dispatching
+                    egoSelect.dispatchEvent(new Event('change'));
+                }
+            } else {
+                setLevelRadio(0);
+            }
+        }
+
+        // Event listener for Sinner select change
+        sinnerSelect.addEventListener('change', function() {
+            const selectedSinner = this.value;
+            localStorage.setItem('selectedSinner', selectedSinner);
+            updateEgoDropdown(selectedSinner, localStorage.getItem('selectedEgo'));
+        });
+
+        // Event listener for EGO select change
+        egoSelect.addEventListener('change', function() {
+            const selectedEgoId = this.value;
+            localStorage.setItem('selectedEgo', selectedEgoId);
+
+            if (selectedEgoId && egoProgressData[selectedEgoId]) {
+                const currentUptie = egoProgressData[selectedEgoId].current_uptie;
+                setLevelRadio(currentUptie);
+            } else {
+                setLevelRadio(0);
+            }
+        });
+
+        // Event listener for radio button clicks (immediate update)
+        levelRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const selectedSinner = sinnerSelect.value;
+                const selectedEgoId = egoSelect.value;
+                const newLevel = this.value;
+
+                if (selectedSinner && selectedEgoId) {
+                    const formData = new FormData();
+                    formData.append('sinner', selectedSinner); // Not strictly needed by Flask route, but good for context
+                    formData.append('E.G.O.', selectedEgoId);
+                    formData.append('new_level', newLevel);
+
+                    fetch(egoUpdateForm.action, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('EGO level updated successfully!');
+                            // Update the local egoProgressData and re-set radio for visual consistency
+                            if (egoProgressData[selectedEgoId]) {
+                                egoProgressData[selectedEgoId].current_uptie = parseInt(newLevel);
+                            }
+                            setLevelRadio(parseInt(newLevel)); // Ensure the just-clicked radio stays checked
+                            // No full page reload needed, but should eventually update relevant UI parts if not already done by refresh on home route.
+                        } else {
+                            console.error('Failed to update EGO level.');
+                            // Optionally revert radio button or show error message
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        // Optionally revert radio button or show error message
+                    });
+                } else {
+                    console.warn("Please select a Sinner and an EGO before updating level.");
+                    this.checked = false; // Uncheck the radio if no Sinner/EGO selected
+                }
+            });
+        });
+
+        // On page load, restore selections and update dropdowns/radios
+        document.addEventListener('DOMContentLoaded', function() {
+            const storedSinner = localStorage.getItem('selectedSinner');
+            const storedEgo = localStorage.getItem('selectedEgo');
+
+            if (storedSinner) {
+                sinnerSelect.value = storedSinner;
+                updateEgoDropdown(storedSinner, storedEgo);
+            } else {
+                setLevelRadio(0);
+            }
         });
     </script>
 </body>

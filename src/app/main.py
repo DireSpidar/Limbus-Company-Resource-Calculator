@@ -15,6 +15,7 @@ def create_app(tracker):
 
     @app.route('/')
     def home():
+        tracker.reload_current_progress() # Ensure tracker has latest data
         ego_display_data = []
         for item in tracker.progress.get('E.G.O.', []): # tracker.progress is the full data loaded from items.json/user_progress.json
             item_id = item.get('id')
@@ -85,6 +86,7 @@ def create_app(tracker):
     @app.route('/visualizer')
     def visualizer():
         """Renders the progress visualizer page."""
+        tracker.reload_current_progress() # Ensure tracker has latest data
         progress_data = tracker.get_sinner_progress()
         return render_template('visualizer.html', progress_data=progress_data)
 
