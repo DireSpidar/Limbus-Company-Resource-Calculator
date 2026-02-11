@@ -1,0 +1,8 @@
+This is a placeholder for a test screenshot.
+To properly test the screen recognition, this image should be a screenshot
+from the Limbus Company game that contains an "upgrade event" UI element
+and text for an item ID and new level.
+You can capture one using tools like Greenshot, ShareX, or the built-in
+screenshot functionality of your OS.
+Make sure the "upgrade_template.png" is a small crop of a distinct
+UI element from this test_screenshot.png.
