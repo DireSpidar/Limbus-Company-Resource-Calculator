@@ -24,12 +24,12 @@ class Recognizer:
         # In a real application, this would be loaded from a config file (e.g., JSON, YAML)
         # and would contain coordinates for various UI elements based on monitor resolution.
         self.roi_config = {
-            "item_id_area": {"top": 250, "left": 450, "width": 200, "height": 50},
-            "new_level_area": {"top": 300, "left": 450, "width": 100, "height": 30}
+            "item_id_area": {"top": 515, "left": 860, "width": 200, "height": 50},
+            "new_level_area": {"top": 575, "left": 860, "width": 150, "height": 30}
         }
         
         # Configure Tesseract path if it's not in your system's PATH
-        # pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract' # Example for Linux
+        pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
     def capture_screen(self):
         """Captures the screen and returns it as an OpenCV-compatible BGR NumPy array."""
