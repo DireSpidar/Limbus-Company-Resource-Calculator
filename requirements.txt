@@ -3,7 +3,7 @@ mss
 numpy
 Pillow
 opencv-python
-pytesseract
+easyocr
 
 # For the companion app UI
 Flask
