@@ -23,6 +23,12 @@
         .ego-level { font-weight: bold; }
         .ego-individual-progress-bar-container { width: 100%; background-color: #e9ecef; border-radius: .25rem; height: 1rem; }
         .ego-individual-progress-bar { height: 100%; background-color: #007bff; color: white; text-align: center; line-height: 1rem; border-radius: .25rem; font-size: 0.75rem;}
+        .fixed-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000; /* Ensure it's above other content */
+        }
     </style>
 </head>
 <body>
@@ -90,7 +96,9 @@
             {% endfor %}
         </div>
 
-        <a href="{{ url_for('home') }}" class="button">Back to Home</a>
     </div>
+
+    <a href="{{ url_for('home') }}" class="button fixed-button">Back to Home</a>
+
 </body>
 </html>
