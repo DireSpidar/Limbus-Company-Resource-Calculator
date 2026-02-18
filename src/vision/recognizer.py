@@ -1,4 +1,5 @@
 import os
+import sys # Added for PyInstaller check
 import mss
 import numpy as np
 import cv2
@@ -28,12 +29,19 @@ class Recognizer:
             "new_level_area": {"top": 575, "left": 860, "width": 150, "height": 30}
         }
         
-        # Configure Tesseract path if it's not in your system's PATH
-        # Configure Tesseract path if it's not in your system's PATH
-        tesseract_path = os.environ.get("TESSERACT_PATH")
-        if tesseract_path:
-            pytesseract.pytesseract.tesseract_cmd = tesseract_path
-        # Example for Linux: pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
+        # Configure Tesseract path for bundled application or development
+        if getattr(sys, 'frozen', False):
+            # Running as a PyInstaller bundle
+            application_path = sys._MEIPASS
+            tesseract_bundle_dir = os.path.join(application_path, 'Tesseract-OCR')
+            pytesseract.pytesseract.tesseract_cmd = os.path.join(tesseract_bundle_dir, 'tesseract.exe')
+            os.environ['TESSDATA_PREFIX'] = os.path.join(tesseract_bundle_dir, 'tessdata')
+        else:
+            # Running as a script (development)
+            tesseract_path = os.environ.get("TESSERACT_PATH")
+            if tesseract_path:
+                pytesseract.pytesseract.tesseract_cmd = tesseract_path
+            # Example for Linux: pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
 
     def capture_screen(self):
         """Captures the screen and returns it as an OpenCV-compatible BGR NumPy array."""
