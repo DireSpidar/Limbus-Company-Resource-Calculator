@@ -3,7 +3,7 @@ import sys # Added for PyInstaller check
 import mss
 import numpy as np
 import cv2
-import pytesseract
+import easyocr # Replaced pytesseract
 from PIL import Image
 
 class Recognizer:
@@ -29,19 +29,18 @@ class Recognizer:
             "new_level_area": {"top": 575, "left": 860, "width": 150, "height": 30}
         }
         
-        # Configure Tesseract path for bundled application or development
+        # Initialize EasyOCR reader
+        # For bundled application, models need to be included in the bundle.
+        # For development, easyocr will download models to its default location (~/.EasyOCR/model)
         if getattr(sys, 'frozen', False):
             # Running as a PyInstaller bundle
             application_path = sys._MEIPASS
-            tesseract_bundle_dir = os.path.join(application_path, 'Tesseract-OCR')
-            pytesseract.pytesseract.tesseract_cmd = os.path.join(tesseract_bundle_dir, 'tesseract.exe')
-            os.environ['TESSDATA_PREFIX'] = os.path.join(tesseract_bundle_dir, 'tessdata')
+            easyocr_model_dir = os.path.join(application_path, 'easyocr_models')
+            # Ensure models are copied to easyocr_models during PyInstaller build
+            self.reader = easyocr.Reader(['en'], model_storage_directory=easyocr_model_dir, download_iter=0)
         else:
             # Running as a script (development)
-            tesseract_path = os.environ.get("TESSERACT_PATH")
-            if tesseract_path:
-                pytesseract.pytesseract.tesseract_cmd = tesseract_path
-            # Example for Linux: pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
+            self.reader = easyocr.Reader(['en'], download_iter=0) # download_iter=0 prevents automatic downloads if not found
 
     def capture_screen(self):
         """Captures the screen and returns it as an OpenCV-compatible BGR NumPy array."""
@@ -50,10 +49,14 @@ class Recognizer:
         img_bgr = cv2.cvtColor(img_rgba, cv2.COLOR_RGBA2BGR)
         return img_bgr
 
-    def _convert_cv2_to_pil(self, cv2_image):
-        """Converts an OpenCV BGR image to a PIL Image."""
-        rgb_image = cv2.cvtColor(cv2_image, cv2.COLOR_BGR2RGB)
-        return Image.fromarray(rgb_image)
+    def _clamp_roi_coords(self, image, roi_coords):
+        """Clamps ROI coordinates to image boundaries."""
+        screen_height, screen_width = image.shape[:2] # Handle both BGR and grayscale images
+        top = max(0, min(roi_coords["top"], screen_height))
+        left = max(0, min(roi_coords["left"], screen_width))
+        bottom = max(0, min(roi_coords["top"] + roi_coords["height"], screen_height))
+        right = max(0, min(roi_coords["left"] + roi_coords["width"], screen_width))
+        return top, left, bottom, right
 
     def detect_upgrade_event(self, screen_capture):
         """
@@ -74,53 +77,38 @@ class Recognizer:
         if max_val >= detection_threshold:
             print(f"Upgrade event detected with confidence: {max_val:.2f}")
             
-            # --- Optical Character Recognition (OCR) ---
+            # --- Optical Character Recognition (OCR) using EasyOCR ---
             # These ROIs are placeholders and need to be precisely defined
             # based on the game's UI relative to the detected template location.
             item_id = "UNKNOWN_ITEM"
             new_level = "UNKNOWN_LEVEL"
 
-            # Example of how to crop and OCR for item_id (placeholder)
-            # You would adjust the ROI based on max_loc and template dimensions
+            # Process Item ID area
             item_id_roi_coords = self.roi_config["item_id_area"]
-            
-            # Ensure ROI coordinates are within screen_capture bounds
-            top = item_id_roi_coords["top"]
-            left = item_id_roi_coords["left"]
-            bottom = top + item_id_roi_coords["height"]
-            right = left + item_id_roi_coords["width"]
+            top, left, bottom, right = self._clamp_roi_coords(screen_capture, item_id_roi_coords)
 
-            # Clamp coordinates to image boundaries
-            screen_height, screen_width, _ = screen_capture.shape
-            top = max(0, min(top, screen_height))
-            left = max(0, min(left, screen_width))
-            bottom = max(0, min(bottom, screen_height))
-            right = max(0, min(right, screen_width))
-            
             if bottom > top and right > left:
-                item_id_image = screen_capture[top:bottom, left:right]
-                pil_item_id_image = self._convert_cv2_to_pil(item_id_image)
-                item_id = pytesseract.image_to_string(pil_item_id_image, config='--psm 7').strip()
+                item_id_image_cv2 = screen_capture[top:bottom, left:right]
+                # EasyOCR can directly take a NumPy array (OpenCV image)
+                item_id_results = self.reader.readtext(item_id_image_cv2, detail=0)
+                if item_id_results:
+                    item_id = item_id_results[0].strip() # Assuming the first detected text is the item ID
                 print(f"OCR detected Item ID: {item_id}")
 
-            # Example for new_level (placeholder)
+            # Process New Level area
             new_level_roi_coords = self.roi_config["new_level_area"]
-
-            top = new_level_roi_coords["top"]
-            left = new_level_roi_coords["left"]
-            bottom = top + new_level_roi_coords["height"]
-            right = left + new_level_roi_coords["width"]
-
-            screen_height, screen_width, _ = screen_capture.shape
-            top = max(0, min(top, screen_height))
-            left = max(0, min(left, screen_width))
-            bottom = max(0, min(bottom, screen_height))
-            right = max(0, min(right, screen_width))
+            top, left, bottom, right = self._clamp_roi_coords(screen_capture, new_level_roi_coords)
 
             if bottom > top and right > left:
-                new_level_image = screen_capture[top:bottom, left:right]
-                pil_new_level_image = self._convert_cv2_to_pil(new_level_image)
-                new_level = pytesseract.image_to_string(pil_new_level_image, config='--psm 7').strip()
+                new_level_image_cv2 = screen_capture[top:bottom, left:right]
+                new_level_results = self.reader.readtext(new_level_image_cv2, detail=0)
+                if new_level_results:
+                    # Attempt to extract a number for the level
+                    level_text = new_level_results[0].strip()
+                    try:
+                        new_level = int(level_text)
+                    except ValueError:
+                        new_level = "UNKNOWN_LEVEL" # Or handle as string if non-numeric
                 print(f"OCR detected New Level: {new_level}")
 
             return item_id, new_level, max_loc # Returning max_loc for further analysis if needed
