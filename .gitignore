@@ -36,3 +36,6 @@ venv.bak/
 
 # data files
 /test folder/
+
+# EasyOCR models
+easyocr_models/
