@@ -29,7 +29,11 @@ class Recognizer:
         }
         
         # Configure Tesseract path if it's not in your system's PATH
-        pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+        # Configure Tesseract path if it's not in your system's PATH
+        tesseract_path = os.environ.get("TESSERACT_PATH")
+        if tesseract_path:
+            pytesseract.pytesseract.tesseract_cmd = tesseract_path
+        # Example for Linux: pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
 
     def capture_screen(self):
         """Captures the screen and returns it as an OpenCV-compatible BGR NumPy array."""
