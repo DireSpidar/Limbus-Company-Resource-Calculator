@@ -3,6 +3,8 @@ School project for DEV460
 
 ## Windows Setup Instructions
 
+**Note:** These instructions are for running the application directly from the Python script. If you are using a bundled executable (e.g., created with PyInstaller), the Tesseract OCR and `TESSERACT_PATH` setup will be handled automatically, and you can skip sections 1 and 2.
+
 To run this application on Windows 10/11, please follow these additional steps:
 
 ### 1. Install Tesseract OCR
