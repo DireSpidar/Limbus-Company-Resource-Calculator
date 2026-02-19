@@ -1,0 +1,23 @@
+**Key Context for Next AI Agent:**
+
+1.  **Project:** `Limbus-Company-Resource-Calculator` (located at `/home/jonah/VScodefolder/Limbus-Company-Resource-Calculator`).
+2.  **Current Branch:** `V1-Foundation-Web-App-Win`.
+3.  **Overall Goal:** Prepare the Python Flask web application for distribution on Windows as a self-contained executable, specifically addressing OCR (Optical Character Recognition) dependencies.
+4.  **Major Changes Implemented:**
+    *   "Back to Home" button on `/visualizer` is persistent. (Committed to `V1-Foundation-Web-App`)
+    *   Created `V1-Foundation-Web-App-Win` branch for Windows compatibility.
+    *   OCR migrated from `pytesseract` to `easyocr` in `src/vision/recognizer.py` (no external Tesseract install for end-user).
+    *   `requirements.txt` updated: `easyocr` replaces `pytesseract`.
+    *   `main.spec` configured for PyInstaller bundling (includes `easyocr_models` directory placeholder).
+    *   `README.md` updated with Tesseract/EasyOCR setup clarifications.
+    *   `easyocr_models/` added to `.gitignore`.
+    *   All changes committed and pushed to `V1-Foundation-Web-App-Win` and `V1-Foundation-Web-App`.
+5.  **Current Sticking Point / Next Critical Step:**
+    *   **EasyOCR Models NOT yet bundled.** The AI *cannot* download these.
+    *   **User's Responsibility:** User MUST manually download EasyOCR language model files (e.g., `en_craft_mlt_25k.pth`, `craft_mlt_25k.pth`) and place them into `/home/jonah/VScodefolder/Limbus-Company-Resource-Calculator/easyocr_models`.
+    *   **Next Action:** Once user confirms "Models Ready" (after placing files), the next AI should run PyInstaller:
+        `cd /home/jonah/VScodefolder/Limbus-Company-Resource-Calculator`
+        `source .venv/bin/activate` (or `.\.venv\Scripts\activate` on Windows)
+        `pyinstaller main.spec`
+    *   **PyInstaller Notes:** Build is lengthy, prone to timeouts. Run in background, redirect output to log. `main.spec` has `__file__` fix.
+6.  **Background Processes:** No long-running background processes should be active.
