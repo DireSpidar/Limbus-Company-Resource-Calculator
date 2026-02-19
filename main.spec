@@ -3,7 +3,7 @@ import os
 import sys
 
 # Get the directory of the spec file
-here = os.path.dirname(os.path.abspath(__file__))
+here = os.path.dirname(os.path.abspath(sys.argv[0]))
 
 # Define the path to EasyOCR models relative to the project root
 easyocr_models_path = os.path.join(here, 'easyocr_models')
