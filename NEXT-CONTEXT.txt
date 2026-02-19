@@ -21,3 +21,10 @@
         `pyinstaller main.spec`
     *   **PyInstaller Notes:** Build is lengthy, prone to timeouts. Run in background, redirect output to log. `main.spec` has `__file__` fix.
 6.  **Background Processes:** No long-running background processes should be active.
+
+**Update from Session (Feb 18, 2026):**
+*   **Gitignore Re-evaluated:** `.gitignore` was updated to unignore `easyocr_models/` and `test folder/`. Previously, these were excluded, which made the repo incomplete for Windows users who need these assets bundled or for testing.
+*   **EasyOCR Models Bundled:** The `english_g2.pth` model (15MB) is now committed to the repository. The next agent no longer needs to wait for the user to manually place this specific file, though other languages might still need manual addition.
+*   **Important:** `lib/` and `lib64/` were removed from `.gitignore` to prevent accidental exclusion of top-level Windows library dependencies if they are added in the future.
+*   **Next Step:** Proceed with `pyinstaller main.spec` as the environment is now "ready" with assets included in the source tree. Give the user directions on how to do this step by step, prompting them to say when they complete a step. Ask about updated test images.
+hunt for and remove remnants of pytesseract related things. You can refrence the non-windows "V1 foundation" branch for a good idea of what you need to look for
