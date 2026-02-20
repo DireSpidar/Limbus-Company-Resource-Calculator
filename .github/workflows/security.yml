@@ -31,7 +31,7 @@ jobs:
           egress-policy: audit
 
       - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88b5cd8553a474376d9738b7 # v4.1.1
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v4.1.1
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@294a9d92911152fe08befb9ec03e240add280cb3 # v3.26.8
@@ -57,7 +57,7 @@ jobs:
           egress-policy: audit
 
       - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88b5cd8553a474376d9738b7 # v4.1.1
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v4.1.1
         with:
           fetch-depth: 0
 
