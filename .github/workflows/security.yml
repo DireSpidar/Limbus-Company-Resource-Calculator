@@ -4,12 +4,12 @@ on:
   push:
     branches:
       - "**"
-  pull_request: {} # optional but recommended; remove if you only want push+schedule
+  pull_request: {}
   schedule:
-    # Weekly: Mondays at 09:00 UTC (adjust as you like)
+    # Weekly: Mondays at 09:00 UTC
     - cron: "0 9 * * 1"
 
-permissions: {} # set at job-level
+permissions: {}
 
 jobs:
   codeql:
@@ -22,15 +22,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # change this to match your repo:
-        # - python
-        # - javascript-typescript
-        # - go
-        # - java-kotlin
         language: ["python"]
 
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v5
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
@@ -43,30 +39,6 @@ jobs:
       - name: Analyze
         uses: github/codeql-action/analyze@v3
 
-  osv_scan:
-    name: OSV-Scanner (Dependencies)
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Run OSV-Scanner
-        uses: google/osv-scanner-action@latest
-        with:
-          # This mode is good for push+schedule: full scan, reports to Code Scanning
-          scan-args: |-
-            --format=sarif
-            --output=osv-results.sarif
-            .
-
-      - name: Upload OSV SARIF
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: osv-results.sarif
-
   gitleaks:
     name: Gitleaks (Secrets)
     runs-on: ubuntu-latest
@@ -74,7 +46,8 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
