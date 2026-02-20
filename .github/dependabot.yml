@@ -1,13 +1,13 @@
-version: 2
+#version: 2
 
-updates:
+#updates:
 #  - package-ecosystem: pip
 #    directory: "/"
 #    schedule:
 #      interval: weekly
 # Uncomment the above block to enable Dependabot for Python dependencies managed with pip.
 
-  - package-ecosystem: github-actions
-    directory: "/"
-    schedule:
-      interval: weekly
+#  - package-ecosystem: github-actions
+#    directory: "/"
+#    schedule:
+#      interval: weekly
