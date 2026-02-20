@@ -1,0 +1,82 @@
+name: Security Scans
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request: {} # optional but recommended; remove if you only want push+schedule
+  schedule:
+    # Weekly: Mondays at 09:00 UTC (adjust as you like)
+    - cron: "0 9 * * 1"
+
+permissions: {} # set at job-level
+
+jobs:
+  codeql:
+    name: CodeQL (SAST)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # change this to match your repo:
+        # - python
+        # - javascript-typescript
+        # - go
+        # - java-kotlin
+        language: ["python"]
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Analyze
+        uses: github/codeql-action/analyze@v3
+
+  osv_scan:
+    name: OSV-Scanner (Dependencies)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Run OSV-Scanner
+        uses: google/osv-scanner-action@v2
+        with:
+          # This mode is good for push+schedule: full scan, reports to Code Scanning
+          scan-args: |-
+            --format=sarif
+            --output=osv-results.sarif
+            .
+
+      - name: Upload OSV SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: osv-results.sarif
+
+  gitleaks:
+    name: Gitleaks (Secrets)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@v2
