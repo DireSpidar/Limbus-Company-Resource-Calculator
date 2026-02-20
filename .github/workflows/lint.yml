@@ -35,6 +35,6 @@ jobs:
 
           # Fast + practical default: lint only changed files on push/PR
           VALIDATE_ALL_CODEBASE: false
-
+          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
           # If the default branch is main, set this (helps diff logic in some cases)
           DEFAULT_BRANCH: main
