@@ -1,0 +1,40 @@
+name: Lint (Super-Linter)
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request: {} # optional but recommended; remove if you only want push
+
+permissions: {} # set at job-level
+
+jobs:
+  super-lint:
+    name: Super-Linter
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: read
+      statuses: write
+      # Note: options below are for PR summary comments from Super-Linter
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Super-Linter
+        uses: super-linter/super-linter@v8.5.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          # Fast + practical default: lint only changed files on push/PR
+          VALIDATE_ALL_CODEBASE: false
+
+          # If the default branch is main, set this (helps diff logic in some cases)
+          DEFAULT_BRANCH: main
