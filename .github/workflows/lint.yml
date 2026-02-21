@@ -1,40 +1,44 @@
-name: Lint (Super-Linter)
+---
+name: Lint
 
-on:
+"on":
   push:
-    branches:
-      - "**"
-  pull_request: {} # optional but recommended; remove if you only want push
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
 
-permissions: {} # set at job-level
+permissions:
+  contents: read
 
 jobs:
-  super-lint:
-    name: Super-Linter
+  lint:
+    name: Code Quality
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      packages: read
-      statuses: write
-      # Note: options below are for PR summary comments from Super-Linter
-      issues: write
-      pull-requests: write
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: false
 
-      - name: Super-Linter
-        uses: super-linter/super-linter@v8.5.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
 
-          # Fast + practical default: lint only changed files on push/PR
-          VALIDATE_ALL_CODEBASE: false
-          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
-          # If the default branch is main, set this (helps diff logic in some cases)
-          DEFAULT_BRANCH: main
+      - name: Actionlint (GitHub Actions)
+        uses: rhysd/actionlint-action@v1
+
+      - name: Ruff (Python)
+        uses: astral-sh/ruff-action@v3
+
+      - name: Yamllint (YAML)
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          file_or_dir: .
+          config_data: |
+            extends: default
+            rules:
+              line-length:
+                max: 120
+              document-start: disable
+              truthy: disable
