@@ -26,8 +26,20 @@ The **Security** workflow is dedicated to identifying vulnerabilities and protec
 
 ---
 
+## 3. Dependabot (`dependabot.yml`)
+
+**Dependabot** automates the process of keeping dependencies up-to-date by monitoring for new releases and creating pull requests.
+
+### Ecosystems Monitored:
+*   **Pip**: Monitors Python dependencies for updates and security vulnerabilities.
+*   **GitHub Actions**: Ensures that the GitHub Actions used in workflows are running on the latest stable versions.
+
+---
+
 ## Trigger Summary
 
 *   **Pushes**: Triggers on every push to any branch.
 *   **Pull Requests**: Triggers on every PR targeting any branch.
-*   **Scheduled**: The Security workflow runs automatically every Monday at 09:00 UTC to provide ongoing security oversight.
+*   **Scheduled**: 
+    *   **Security Workflow**: Runs every Monday at 09:00 UTC.
+    *   **Dependabot**: Runs weekly to check for updates and security vulnerabilities in dependencies.
