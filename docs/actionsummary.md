@@ -11,6 +11,7 @@ The **Lint** workflow focuses on code style, formatting, and correctness. It's d
 ### Tools Used:
 *   **Actionlint**: Automatically checks GitHub Actions workflow files (`.yml` files in `.github/workflows/`) for syntax errors and best practices.
 *   **Ruff**: An extremely fast Python linter and formatter. It replaces multiple tools like Flake8, Isort, and Black, ensuring Python code adheres to PEP 8 and other standards.
+*   **Mypy**: Performs static type checking on Python source code, helping to catch "NoneType" errors and other logic issues early.
 *   **Yamllint**: Validates all YAML files in the repository (e.g., `.github/dependabot.yml`, workflow files) for correct syntax and formatting.
 
 ---
@@ -23,6 +24,7 @@ The **Security** workflow is dedicated to identifying vulnerabilities and protec
 *   **CodeQL (SAST)**: GitHub's Static Analysis Security Testing tool. It analyzes the codebase to find potential security vulnerabilities like SQL injection, cross-site scripting (XSS), and more.
 *   **Gitleaks**: A secret detection tool that scans the repository's history and current files for accidentally committed API keys, passwords, or other sensitive credentials.
 *   **Bandit**: A security linter specifically for Python. It scans Python source code for common security issues, such as the use of insecure functions or modules.
+*   **Pip-audit (SCA)**: A dependency vulnerability scanner that checks Python packages listed in `requirements.txt` against known CVEs.
 
 ---
 

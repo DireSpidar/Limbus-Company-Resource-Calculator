@@ -1,0 +1,8 @@
+# For screen capturing and pixel analysis
+mss
+numpy
+Pillow
+opencv-python
+
+# For the companion app UI
+Flask

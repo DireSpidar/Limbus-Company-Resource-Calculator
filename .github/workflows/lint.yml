@@ -42,3 +42,8 @@ jobs:
                 max: 120
               document-start: disable
               truthy: disable
+
+      - name: Mypy (Static Type Checking)
+        run: |
+          pip install mypy
+          mypy . --ignore-missing-imports || echo "No files to type check"

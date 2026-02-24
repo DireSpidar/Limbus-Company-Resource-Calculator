@@ -65,3 +65,24 @@ jobs:
         run: |
           pip install bandit
           bandit -r . || echo "No source code found"
+
+  pip-audit:
+    name: Dependency Vulnerability Scan (SCA)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - name: Run Pip-Audit
+        run: |
+          pip install pip-audit
+          if [ -f requirements.txt ]; then
+            pip-audit -r requirements.txt
+          else
+            echo "requirements.txt not found, skipping."
+          fi
