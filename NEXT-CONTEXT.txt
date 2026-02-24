@@ -1,0 +1,24 @@
+**Key Context for Next AI Agent:**
+
+1.  **Project:** `Limbus-Company-Resource-Calculator`
+2.  **Current Branch:** `V2-Foundation-Main-Win` (Created from `V2-Foundation-Main`).
+3.  **Overall Goal:** Building out the V2 Windows version, focusing on the non-overlay part with high security standards.
+4.  **Major Changes Implemented (Security & Foundation):**
+    *   **Secure Path Handling:** `ProgressTracker` now uses absolute paths and validates that it doesn't escape the project root.
+    *   **Atomic Data Saving:** `ProgressTracker` uses `tempfile` and `os.replace` to prevent JSON corruption during saves.
+    *   **Input Validation:** Added strict type and range checks for item updates in both the tracker and the Flask routes.
+    *   **Production Server:** Integrated `waitress` as the WSGI server for Windows distribution.
+    *   **Templates Migrated:** `home.html` and `visualizer.html` were migrated from V1 and cleaned up (removed insecure placeholder routes).
+    *   **Data Migrated:** `ego_costs.json`, `sinners.json`, and `user_progress.json` were brought over from V1 to enable full progress calculation features.
+    *   **Logging:** Improved `src/main.py` with structured logging and better thread lifecycle management.
+    *   **Path Resolution:** `src/app/main.py` now handles `sys._MEIPASS` correctly for PyInstaller bundling.
+5.  **Current Status:**
+    *   The "non-overlay" foundation is solid and secure.
+    *   `easyOCR` implementation is intentionally deferred as per user instructions.
+    *   Manual update for E.G.O. is functional in the UI.
+6.  **Next Recommended Steps:**
+    *   **Implement Identity Updates:** Extend the manual update UI/logic to handle Identities (currently it's E.G.O. focused).
+    *   **Secure GitHub Updates:** Implement the "Update Items from GitHub" feature with proper validation (check URL, validate JSON schema) to meet design goals securely.
+    *   **Refine Visualizer:** Ensure all resource calculations are accurate with the new V2 data structure.
+    *   **Screen Capture Robustness:** Improve `src/vision/recognizer.py` to handle different monitor resolutions and potential capture errors.
+7.  **Security Note:** Always ensure `debug=False` and `host='127.0.0.1'` for the Flask app to prevent external access to the local companion app.

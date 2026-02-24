@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Visualizer</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; background-color: #f8f9fa; color: #212529; }
+        .container { background-color: white; padding: 2em; margin: 2em auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); max-width: 800px; }
+        h1, h2, h3, h4 { color: #343a40; }
+        .button { display: inline-block; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; margin-top: 1em; }
+        .button:hover { background-color: #0056b3; }
+        .progress-bar-container { width: 100%; background-color: #e9ecef; border-radius: .25rem; margin-bottom: 0.5rem; }
+        .progress-bar { height: 1.5rem; background-color: #28a745; color: white; text-align: center; line-height: 1.5rem; border-radius: .25rem; }
+        .sinner-progress { margin-top: 2rem; }
+        .sinner { margin-bottom: 2rem; padding: 1rem; border: 1px solid #e9ecef; border-radius: 8px; background-color: #fefefe; }
+        .ego-details-summary { cursor: pointer; display: flex; align-items: center; }
+        .ego-details-summary::before { content: '▶'; margin-right: 0.5em; transform: scale(0.8); }
+        details[open] .ego-details-summary::before { content: '▼'; }
+        .ego-list { list-style-type: none; padding: 0; margin-top: 1rem; }
+        .ego-list li { background-color: #f0f0f0; margin-bottom: 0.5rem; padding: 0.5rem; border-radius: 4px; display: flex; flex-direction: column; }
+        .ego-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem; }
+        .ego-level { font-weight: bold; }
+        .ego-individual-progress-bar-container { width: 100%; background-color: #e9ecef; border-radius: .25rem; height: 1rem; }
+        .ego-individual-progress-bar { height: 100%; background-color: #007bff; color: white; text-align: center; line-height: 1rem; border-radius: .25rem; font-size: 0.75rem;}
+        .fixed-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Progress Visualizer</h1>
+
+        <h2>Total E.G.O. Maxed Progress</h2>
+        <p>{{ "%.2f"|format(progress_data.total_maxed_egos_progress.percentage) }}% ({{ progress_data.total_maxed_egos_progress.maxed }} / {{ progress_data.total_maxed_egos_progress.total }})</p>
+        <div class="progress-bar-container">
+            <div class="progress-bar" style="width: {{ progress_data.total_maxed_egos_progress.percentage }}%">{{ "%.2f"|format(progress_data.total_maxed_egos_progress.percentage) }}%</div>
+        </div>
+
+        <hr>
+
+        <h2>Total Resource Progress (Shards & Threads Combined)</h2>
+        <p>
+            Spent: {{ progress_data.total_resource_progress.spent_shards }} Shards, {{ progress_data.total_resource_progress.spent_threads }} Threads<br>
+            Total Possible: {{ progress_data.total_resource_progress.total_shards_possible }} Shards, {{ progress_data.total_resource_progress.total_threads_possible }} Threads
+        </p>
+        <div class="progress-bar-container">
+            <div class="progress-bar" style="width: {{ progress_data.total_resource_progress.percentage }}%">{{ "%.2f"|format(progress_data.total_resource_progress.percentage) }}%</div>
+        </div>
+
+        <hr>
+
+        <h2>Per-Sinner E.G.O. Progress</h2>
+        <div class="sinner-progress">
+            {% for sinner in progress_data.sinner_progress %}
+            <div class="sinner">
+                <h3>{{ sinner.name }}</h3>
+                <h4>Maxed E.G.O.s: {{ sinner.maxed_egos_count }} / {{ sinner.total_egos_count }} ({{ "%.2f"|format(sinner.percentage_maxed_egos) }}%)</h4>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: {{ sinner.percentage_maxed_egos }}%">{{ "%.2f"|format(sinner.percentage_maxed_egos) }}%</div>
+                </div>
+
+                <h4>Resource Progress:</h4>
+                <p>
+                    Spent: {{ sinner.resource_progress.spent_shards }} Shards, {{ sinner.resource_progress.spent_threads }} Threads<br>
+                    Total Possible: {{ sinner.resource_progress.total_shards_possible }} Shards, {{ sinner.resource_progress.total_threads_possible }} Threads
+                </p>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: {{ sinner.resource_progress.percentage }}%">{{ "%.2f"|format(sinner.resource_progress.percentage) }}%</div>
+                </div>
+
+                <details>
+                    <summary class="ego-details-summary"><h4>E.G.O. Details ({{ sinner.egos|length }}):</h4></summary>
+                    <ul class="ego-list">
+                        {% for ego in sinner.egos %}
+                            {% set individual_progress_percentage = (ego.current_uptie / ego.max_uptie) * 100 %}
+                            <li>
+                                <div class="ego-info">
+                                    <span>{{ ego.name }} ({{ ego.grade }}):</span>
+                                    <span class="ego-level">Uptie {{ ego.current_uptie }} / {{ ego.max_uptie }}</span>
+                                </div>
+                                <div class="ego-individual-progress-bar-container">
+                                    <div class="ego-individual-progress-bar" style="width: {{ individual_progress_percentage }}%">
+                                        {{ "%.0f"|format(individual_progress_percentage) }}%
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </details>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <a href="{{ url_for('home') }}" class="button fixed-button">Back to Home</a>
+
+</body>
+</html>

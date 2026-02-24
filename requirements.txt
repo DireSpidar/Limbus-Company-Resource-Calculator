@@ -1,8 +1,12 @@
-# For screen capturing and pixel analysis
-mss
-numpy
-Pillow
-opencv-python
+# Core dependencies
+mss==9.0.1
+numpy==1.26.4
+Pillow==10.2.0
+opencv-python==4.9.0.80
 
-# For the companion app UI
-Flask
+# Web UI
+Flask==3.0.2
+waitress==3.0.0
+
+# Security/Utility
+requests==2.31.0

@@ -1,0 +1,26 @@
+{
+    "Zayin": {
+        "0->1": {"thread": 0, "shards": 400},
+        "1->2": {"thread": 20, "shards": 0},
+        "2->3": {"thread": 60, "shards": 0},
+        "3->4": {"thread": 110, "shards": 80}
+    },
+    "Teth": {
+        "0->1": {"thread": 0, "shards": 400},
+        "1->2": {"thread": 25, "shards": 0},
+        "2->3": {"thread": 70, "shards": 0},
+        "3->4": {"thread": 130, "shards": 90}
+    },
+    "He": {
+        "0->1": {"thread": 0, "shards": 400},
+        "1->2": {"thread": 30, "shards": 0},
+        "2->3": {"thread": 80, "shards": 0},
+        "3->4": {"thread": 150, "shards": 100}
+    },
+    "Waw": {
+        "0->1": {"thread": 0, "shards": 400},
+        "1->2": {"thread": 35, "shards": 0},
+        "2->3": {"thread": 90, "shards": 0},
+        "3->4": {"thread": 170, "shards": 150}
+    }
+}

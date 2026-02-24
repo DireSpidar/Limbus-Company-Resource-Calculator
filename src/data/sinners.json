@@ -1,0 +1,169 @@
+{
+  "sinners": [
+    {
+      "name": "Yi Sang",
+      "egos": [
+        {"id": "YI_SANG_EGO_01", "name": "Crow's Eye View", "grade": "Zayin"},
+        {"id": "YI_SANG_EGO_02", "name": "Bygone Days", "grade": "Zayin"},
+        {"id": "YI_SANG_EGO_03", "name": "4th Match Flame", "grade": "Teth"},
+        {"id": "YI_SANG_EGO_04", "name": "Wishing Cairn", "grade": "Teth"},
+        {"id": "YI_SANG_EGO_05", "name": "Dimension Shredder", "grade": "He"},
+        {"id": "YI_SANG_EGO_06", "name": "Fell Bullet", "grade": "He"},
+        {"id": "YI_SANG_EGO_07", "name": "Sunshower", "grade": "Waw"},
+        {"id": "YI_SANG_EGO_08", "name": "Great Trichiliocosm", "grade": "Waw"}
+      ]
+    },
+    {
+      "name": "Faust",
+      "egos": [
+        {"id": "FAUST_EGO_01", "name": "Representation Emitter", "grade": "Zayin"},
+        {"id": "FAUST_EGO_02", "name": "Hex Nail", "grade": "Teth"},
+        {"id": "FAUST_EGO_03", "name": "9:2", "grade": "Teth"},
+        {"id": "FAUST_EGO_04", "name": "Lasso", "grade": "Teth"},
+        {"id": "FAUST_EGO_05", "name": "Fluid Sac", "grade": "He"},
+        {"id": "FAUST_EGO_06", "name": "Telepole", "grade": "He"},
+        {"id": "FAUST_EGO_07", "name": "Thoracalgia", "grade": "He"},
+        {"id": "FAUST_EGO_08", "name": "Command: Meltdown", "grade": "He"},
+        {"id": "FAUST_EGO_09", "name": "Everlasting", "grade": "Waw"}
+      ]
+    },
+    {
+      "name": "Don Quixote",
+      "egos": [
+        {"id": "DON_QUIXOTE_EGO_01", "name": "La Sangre de Sancho", "grade": "Zayin"},
+        {"id": "DON_QUIXOTE_EGO_02", "name": "Lifetime Stew", "grade": "Teth"},
+        {"id": "DON_QUIXOTE_EGO_03", "name": "Wishing Cairn", "grade": "Teth"},
+        {"id": "DON_QUIXOTE_EGO_04", "name": "Electric Screaming", "grade": "Teth"},
+        {"id": "DON_QUIXOTE_EGO_05", "name": "Fluid Sac", "grade": "He"},
+        {"id": "DON_QUIXOTE_EGO_06", "name": "Telepole", "grade": "He"},
+        {"id": "DON_QUIXOTE_EGO_07", "name": "Red Sheet", "grade": "He"},
+        {"id": "DON_QUIXOTE_EGO_08", "name": "Yearning-Mircalla", "grade": "Waw"},
+        {"id": "DON_QUIXOTE_EGO_09", "name": "In the Name of Love and Hate", "grade": "Waw"}
+      ]
+    },
+    {
+      "name": "Ryōshū",
+      "egos": [
+        {"id": "RYOSH_EGO_01", "name": "Forest for the Flames", "grade": "Zayin"},
+        {"id": "RYOSH_EGO_02", "name": "Soda", "grade": "Zayin"},
+        {"id": "RYOSH_EGO_03", "name": "Red Eyes", "grade": "Teth"},
+        {"id": "RYOSH_EGO_04", "name": "Blind Obsession", "grade": "Teth"},
+        {"id": "RYOSH_EGO_05", "name": "4th Match Flame", "grade": "He"},
+        {"id": "RYOSH_EGO_06", "name": "Red Eyes (Open)", "grade": "He"},
+        {"id": "RYOSH_EGO_07", "name": "Thoracalgia", "grade": "He"},
+        {"id": "RYOSH_EGO_08", "name": "Contempt, Awe", "grade": "Waw"},
+        {"id": "RYOSH_EGO_09", "name": "Great Trichiliocosm", "grade": "Waw"}
+      ]
+    },
+    {
+      "name": "Meursault",
+      "egos": [
+        {"id": "MEURSAULT_EGO_01", "name": "Chains of Others", "grade": "Zayin"},
+        {"id": "MEURSAULT_EGO_02", "name": "Screwloose Wallop", "grade": "Teth"},
+        {"id": "MEURSAULT_EGO_03", "name": "Regret", "grade": "Teth"},
+        {"id": "MEURSAULT_EGO_04", "name": "Electric Screaming", "grade": "Teth"},
+        {"id": "MEURSAULT_EGO_05", "name": "Pursuance", "grade": "He"},
+        {"id": "MEURSAULT_EGO_06", "name": "Capote", "grade": "He"},
+        {"id": "MEURSAULT_EGO_07", "name": "Yearning-Mircalla", "grade": "Waw"},
+        {"id": "MEURSAULT_EGO_08", "name": "Crushbound Past", "grade": "Waw"}
+      ]
+    },
+    {
+      "name": "Hong Lu",
+      "egos": [
+        {"id": "HONG_LU_EGO_01", "name": "Land of Illusion", "grade": "Zayin"},
+        {"id": "HONG_LU_EGO_02", "name": "Roseate Desire", "grade": "Teth"},
+        {"id": "HONG_LU_EGO_03", "name": "Soda", "grade": "Teth"},
+        {"id": "HONG_LU_EGO_04", "name": "Cavernous Wailing", "grade": "Teth"},
+        {"id": "HONG_LU_EGO_05", "name": "Lasso", "grade": "Teth"},
+        {"id": "HONG_LU_EGO_06", "name": "Dimension Shredder", "grade": "He"},
+        {"id": "HONG_LU_EGO_07", "name": "Effervescent Corrosion", "grade": "He"},
+        {"id": "HONG_LU_EGO_08", "name": "To Remain Oneself", "grade": "He"},
+        {"id": "HONG_LU_EGO_09", "name": "Tears of the Tarnished Blood", "grade": "Waw"}
+      ]
+    },
+    {
+      "name": "Heathcliff",
+      "egos": [
+        {"id": "HEATHCLIFF_EGO_01", "name": "Bodysack", "grade": "Zayin"},
+        {"id": "HEATHCLIFF_EGO_02", "name": "Holiday", "grade": "Zayin"},
+        {"id": "HEATHCLIFF_EGO_03", "name": "AEDD", "grade": "Teth"},
+        {"id": "HEATHCLIFF_EGO_04", "name": "Fell Bullet", "grade": "Teth"},
+        {"id": "HEATHCLIFF_EGO_05", "name": "Move-in Reg.", "grade": "Teth"},
+        {"id": "HEATHCLIFF_EGO_06", "name": "Telepole", "grade": "He"},
+        {"id": "HEATHCLIFF_EGO_07", "name": "Ya Śūnyatā Tad Rūpam", "grade": "He"},
+        {"id": "HEATHCLIFF_EGO_08", "name": "Asymmetrical Inertia", "grade": "He"},
+        {"id": "HEATHCLIFF_EGO_09", "name": "Binds", "grade": "Waw"}
+      ]
+    },
+    {
+      "name": "Ishmael",
+      "egos": [
+        {"id": "ISHMAEL_EGO_01", "name": "Snagharpoon", "grade": "Zayin"},
+        {"id": "ISHMAEL_EGO_02", "name": "Hundred-Footed Death Maggot", "grade": "Zayin"},
+        {"id": "ISHMAEL_EGO_03", "name": "Roseate Desire", "grade": "Teth"},
+        {"id": "ISHMAEL_EGO_04", "name": "Capote", "grade": "Teth"},
+        {"id": "ISHMAEL_EGO_05", "name": "Bygone Days", "grade": "Teth"},
+        {"id": "ISHMAEL_EGO_06", "name": "Ardor Blossom Star", "grade": "He"},
+        {"id": "ISHMAEL_EGO_07", "name": "Wingbeat", "grade": "He"},
+        {"id": "ISHMAEL_EGO_08", "name": "Christmas Nightmare", "grade": "He"},
+        {"id": "ISHMAEL_EGO_09", "name": "Tidal Elegy", "grade": "He"},
+        {"id": "ISHMAEL_EGO_10", "name": "Blind Obsession", "grade": "Waw"}
+      ]
+    },
+    {
+      "name": "Rodion",
+      "egos": [
+        {"id": "RODION_EGO_01", "name": "What is Cast", "grade": "Zayin"},
+        {"id": "RODION_EGO_02", "name": "Rime Shank", "grade": "Teth"},
+        {"id": "RODION_EGO_03", "name": "Effervescent Corrosion", "grade": "Teth"},
+        {"id": "RODION_EGO_04", "name": "4th Match Flame", "grade": "He"},
+        {"id": "RODION_EGO_05", "name": "Pursuance", "grade": "He"},
+        {"id": "RODION_EGO_06", "name": "Hex Nail", "grade": "He"},
+        {"id": "RODION_EGO_07", "name": "Sanguine Desire", "grade": "Waw"},
+        {"id": "RODION_EGO_08", "name": "Indicant's Trial", "grade": "Waw"}
+      ]
+    },
+    {
+      "name": "Sinclair",
+      "egos": [
+        {"id": "SINCLAIR_EGO_01", "name": "Branch of Knowledge", "grade": "Zayin"},
+        {"id": "SINCLAIR_EGO_02", "name": "Cavernous Wailing", "grade": "Zayin"},
+        {"id": "SINCLAIR_EGO_03", "name": "Impending Day", "grade": "Teth"},
+        {"id": "SINCLAIR_EGO_04", "name": "Lifetime Stew", "grade": "Teth"},
+        {"id": "SINCLAIR_EGO_05", "name": "Hex Nail", "grade": "Teth"},
+        {"id": "SINCLAIR_EGO_06", "name": "Lantern", "grade": "He"},
+        {"id": "SINCLAIR_EGO_07", "name": "9:2", "grade": "He"},
+        {"id": "SINCLAIR_EGO_08", "name": "Tears of the Tarnished Blood", "grade": "Waw"}
+      ]
+    },
+    {
+      "name": "Outis",
+      "egos": [
+        {"id": "OUTIS_EGO_01", "name": "To Páthos Máthos", "grade": "Zayin"},
+        {"id": "OUTIS_EGO_02", "name": "I'll Go fer Scissors. How 'Bout You?", "grade": "Zayin"},
+        {"id": "OUTIS_EGO_03", "name": "Ya Śūnyatā Tad Rūpam", "grade": "Teth"},
+        {"id": "OUTIS_EGO_04", "name": "Sunshower", "grade": "Teth"},
+        {"id": "OUTIS_EGO_05", "name": "Ebony Stem", "grade": "He"},
+        {"id": "OUTIS_EGO_06", "name": "Holiday", "grade": "He"},
+        {"id": "OUTIS_EGO_07", "name": "Dimension Shredder", "grade": "He"},
+        {"id": "OUTIS_EGO_08", "name": "Magic Bullet", "grade": "He"},
+        {"id": "OUTIS_EGO_09", "name": "Binds", "grade": "Waw"}
+      ]
+    },
+    {
+      "name": "Gregor",
+      "egos": [
+        {"id": "GREGOR_EGO_01", "name": "Suddenly, One Day", "grade": "Zayin"},
+        {"id": "GREGOR_EGO_02", "name": "Legerdemain", "grade": "Zayin"},
+        {"id": "GREGOR_EGO_03", "name": "Lantern", "grade": "Teth"},
+        {"id": "GREGOR_EGO_04", "name": "Bygone Days", "grade": "Teth"},
+        {"id": "GREGOR_EGO_05", "name": "AEDD", "grade": "He"},
+        {"id": "GREGOR_EGO_06", "name": "Solemn Lament", "grade": "He"},
+        {"id": "GREGOR_EGO_07", "name": "Christmas Nightmare", "grade": "He"},
+        {"id": "GREGOR_EGO_08", "name": "Garden of Thorns", "grade": "Waw"},
+        {"id": "GREGOR_EGO_09", "name": "Unbrilliant Glory", "grade": "Waw"}
+      ]
+    }
+  ]
+}
