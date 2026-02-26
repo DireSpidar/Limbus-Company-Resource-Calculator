@@ -28,4 +28,3 @@ This session focused on completing the initial setup steps for the `Limbus-Compa
 *   **Integrate with Application:** Proceed with integrating this screen recognition module into the main Limbus Company Resource Calculator application.
 *   **Push to GitHub:** Commit your local changes and push them to your GitHub repository.
 
-## Workflow Test: This text is to test workflow trigger from remote branch via commit.
