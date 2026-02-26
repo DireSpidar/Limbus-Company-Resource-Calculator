@@ -27,3 +27,5 @@ This session focused on completing the initial setup steps for the `Limbus-Compa
 *   **Refine ROI Coordinates:** Further fine-tune the `top`, `left`, `width`, and `height` values for `item_id_area` and `new_level_area` in `src/vision/recognizer.py` to improve OCR accuracy.
 *   **Integrate with Application:** Proceed with integrating this screen recognition module into the main Limbus Company Resource Calculator application.
 *   **Push to GitHub:** Commit your local changes and push them to your GitHub repository.
+
+## Workflow Test: This text is to test workflow trigger from remote branch via commit.
