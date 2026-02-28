@@ -18,7 +18,7 @@ class ProgressTracker:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         sinners_path = os.path.join(base_dir, '..', self.sinners_file)
         if os.path.exists(sinners_path):
-            with open(sinners_path, 'r') as f:
+            with open(sinners_path, 'r', encoding="utf-8") as f:
                 return json.load(f)
         else:
             print(f"Warning: Sinners file not found at {sinners_path}. Sinner information will not be available.")
@@ -29,7 +29,7 @@ class ProgressTracker:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         items_path = os.path.join(base_dir, '..', self.items_file)
         if os.path.exists(items_path):
-            with open(items_path, 'r') as f:
+            with open(items_path, 'r', encoding="utf-8") as f:
                 return json.load(f)
         else:
             print(f"Warning: Items file not found at {items_path}. Identity information will not be available.")
@@ -81,7 +81,7 @@ class ProgressTracker:
         data_file_path = os.path.join(base_dir, '..', self.data_file)
 
         if os.path.exists(data_file_path):
-            with open(data_file_path, 'r') as f:
+            with open(data_file_path, 'r', encoding="utf-8") as f:
                 print("Loading existing user progress.")
                 return json.load(f)
         else:
@@ -93,7 +93,7 @@ class ProgressTracker:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         ego_costs_path = os.path.join(base_dir, '..', self.ego_costs_file)
         if os.path.exists(ego_costs_path):
-            with open(ego_costs_path, 'r') as f:
+            with open(ego_costs_path, 'r', encoding="utf-8") as f:
                 return json.load(f)
         else:
             print(f"Warning: E.G.O. costs file not found at {ego_costs_path}. E.G.O. cost calculations will not be available.")
@@ -103,7 +103,7 @@ class ProgressTracker:
         """Saves the current progress to a file."""
         # To avoid relative path issues, construct path relative to this file
         base_dir = os.path.dirname(os.path.abspath(__file__))
-        with open(os.path.join(base_dir, '..', self.data_file), 'w') as f:
+        with open(os.path.join(base_dir, '..', self.data_file), 'w', encoding="utf-8" ) as f:
             json.dump(self.progress, f, indent=4)
         print(f"Progress saved to {self.data_file}")
 
@@ -112,7 +112,7 @@ class ProgressTracker:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         data_file_path = os.path.join(base_dir, '..', self.data_file)
         if os.path.exists(data_file_path):
-            with open(data_file_path, 'r') as f:
+            with open(data_file_path, 'r', encoding="utf-8") as f:
                 self.progress = json.load(f)
             print("Current user progress reloaded.")
         else:
