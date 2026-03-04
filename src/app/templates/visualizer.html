@@ -29,9 +29,25 @@
             right: 20px;
             z-index: 1000; /* Ensure it's above other content */
         }
+        .ocr-toggle-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            color: white;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .ocr-enabled { background-color: #28a745; }
+        .ocr-disabled { background-color: #dc3545; }
     </style>
 </head>
 <body>
+    <button id="ocrToggleButton" class="ocr-toggle-button ocr-disabled">OCR: OFF</button>
     <div class="container">
         <h1>Progress Visualizer</h1>
 
@@ -100,5 +116,33 @@
 
     <a href="{{ url_for('home') }}" class="button fixed-button">Back to Home</a>
 
+    <script>
+        const ocrToggleButton = document.getElementById('ocrToggleButton');
+
+        function updateOCRButton(enabled) {
+            if (enabled) {
+                ocrToggleButton.innerText = 'OCR: ON';
+                ocrToggleButton.classList.remove('ocr-disabled');
+                ocrToggleButton.classList.add('ocr-enabled');
+            } else {
+                ocrToggleButton.innerText = 'OCR: OFF';
+                ocrToggleButton.classList.remove('ocr-enabled');
+                ocrToggleButton.classList.add('ocr-disabled');
+            }
+        }
+
+        // Fetch initial status
+        fetch('/api/ocr_status')
+            .then(response => response.json())
+            .then(data => updateOCRButton(data.enabled))
+            .catch(error => console.error('Error fetching OCR status:', error));
+
+        ocrToggleButton.addEventListener('click', () => {
+            fetch('/api/toggle_ocr', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => updateOCRButton(data.enabled))
+                .catch(error => console.error('Error toggling OCR:', error));
+        });
+    </script>
 </body>
 </html>
