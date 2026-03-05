@@ -3,6 +3,7 @@ mss
 numpy
 Pillow
 opencv-python
+waitress
 
 # For the companion app UI
 Flask
