@@ -21,107 +21,92 @@ class Recognizer:
         if self.upgrade_template is None:
             print(f"Warning: Could not load upgrade template from {self.upgrade_template_path}. Screen recognition might not work as expected.")
 
-        # Placeholder for ROI configurations.
-        # In a real application, this would be loaded from a config file (e.g., JSON, YAML)
-        # and would contain coordinates for various UI elements based on monitor resolution.
+        # ROI configurations based on Jonah's descriptions
+        # These are rough outlines and need to be tuned for actual game resolution.
+        # Red Area: Sinner Name and "E.G.O." check
+        # Blue Area: Item Name and Level
         self.roi_config = {
-            "item_id_area": {"top": 515, "left": 860, "width": 200, "height": 50},
-            "new_level_area": {"top": 575, "left": 860, "width": 150, "height": 30}
+            "red_area_sinner": {"top": 100, "left": 100, "width": 400, "height": 100},
+            "blue_area_item": {"top": 500, "left": 800, "width": 600, "height": 200}
         }
         
-        # Initialize EasyOCR reader
-        # For bundled application, models need to be included in the bundle.
-        # For development, easyocr will download models to its default location (~/.EasyOCR/model)
-        
-        # Determine base directory of the project
-        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-        easyocr_model_dir = os.path.join(base_dir, 'easyocr_models')
+        # Sinner name mapping to internal IDs if needed, 
+        # but the tracker mostly uses EGO names/IDs.
+        self.sinners_list = [
+            "Yi Sang", "Faust", "Don Quixote", "Ryōshū", "Meursault", 
+            "Hong Lu", "Heathcliff", "Ishmael", "Rodion", "Sinclair", 
+            "Outis", "Gregor"
+        ]
 
-        if getattr(sys, 'frozen', False):
-            # Running as a PyInstaller bundle
-            application_path = sys._MEIPASS
-            bundle_model_dir = os.path.join(application_path, 'easyocr_models')
-            self.reader = easyocr.Reader(['en'], model_storage_directory=bundle_model_dir)
-        else:
-            # Running as a script (development)
-            # Use the local easyocr_models folder if it exists
-            if os.path.exists(easyocr_model_dir):
-                print(f"Using EasyOCR models from: {easyocr_model_dir}")
-                self.reader = easyocr.Reader(['en'], model_storage_directory=easyocr_model_dir)
-            else:
-                print("Local easyocr_models folder not found. EasyOCR will use default storage.")
-                self.reader = easyocr.Reader(['en'])
-
-    def capture_screen(self):
-        """Captures the screen and returns it as an OpenCV-compatible BGR NumPy array."""
-        sct_img = self.sct.grab(self.monitor)
-        img_rgba = np.array(sct_img)
-        img_bgr = cv2.cvtColor(img_rgba, cv2.COLOR_RGBA2BGR)
-        return img_bgr
-
-    def _clamp_roi_coords(self, image, roi_coords):
-        """Clamps ROI coordinates to image boundaries."""
-        screen_height, screen_width = image.shape[:2] # Handle both BGR and grayscale images
-        top = max(0, min(roi_coords["top"], screen_height))
-        left = max(0, min(roi_coords["left"], screen_width))
-        bottom = max(0, min(roi_coords["top"] + roi_coords["height"], screen_height))
-        right = max(0, min(roi_coords["left"] + roi_coords["width"], screen_width))
-        return top, left, bottom, right
+    def _find_best_match(self, detected_text, options):
+        """Finds the best match from a list of options for the detected text."""
+        import difflib
+        matches = difflib.get_close_matches(detected_text, options, n=1, cutoff=0.6)
+        return matches[0] if matches else None
 
     def detect_upgrade_event(self, screen_capture):
         """
-        Detects an upgrade event and extracts item_id and new_level.
+        Detects an upgrade event and extracts sinner, item_name, and new_level.
         """
         if self.upgrade_template is None:
-            print("Upgrade template not loaded. Cannot detect upgrade events.")
-            return None, None, None
+            print("Upgrade template not loaded. Still attempting OCR-only detection...")
+            # We can still try OCR if template matching fails, 
+            # or rely on template matching for robustness.
 
-        # Perform template matching
+        # Perform template matching to confirm we are on the right screen
         result = cv2.matchTemplate(screen_capture, self.upgrade_template, cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
-        # Define a threshold for detection confidence
-        # This threshold needs to be tuned based on actual game UI and template.
         detection_threshold = 0.8
+        if max_val < detection_threshold:
+             # If no template match, we might not be on the upgrade screen
+             return None, None, None
 
-        if max_val >= detection_threshold:
-            print(f"Upgrade event detected with confidence: {max_val:.2f}")
+        print(f"Upgrade screen detected (confidence: {max_val:.2f})")
             
-            # --- Optical Character Recognition (OCR) using EasyOCR ---
-            # These ROIs are placeholders and need to be precisely defined
-            # based on the game's UI relative to the detected template location.
-            item_id = "UNKNOWN_ITEM"
-            new_level = "UNKNOWN_LEVEL"
+        # --- OCR Detection ---
+        detected_sinner = None
+        detected_item = None
+        detected_level = None
 
-            # Process Item ID area
-            item_id_roi_coords = self.roi_config["item_id_area"]
-            top, left, bottom, right = self._clamp_roi_coords(screen_capture, item_id_roi_coords)
+        # 1. Process Red Area (Sinner + E.G.O. check)
+        red_roi = self.roi_config["red_area_sinner"]
+        t, l, b, r = self._clamp_roi_coords(screen_capture, red_roi)
+        red_img = screen_capture[t:b, l:r]
+        red_results = self.reader.readtext(red_img, detail=0)
+        
+        is_ego = False
+        for text in red_results:
+            if "E.G.O" in text.upper():
+                is_ego = True
+            # Check for sinner name
+            match = self._find_best_match(text, self.sinners_list)
+            if match:
+                detected_sinner = match
 
-            if bottom > top and right > left:
-                item_id_image_cv2 = screen_capture[top:bottom, left:right]
-                # EasyOCR can directly take a NumPy array (OpenCV image)
-                item_id_results = self.reader.readtext(item_id_image_cv2, detail=0)
-                if item_id_results:
-                    item_id = item_id_results[0].strip() # Assuming the first detected text is the item ID
-                print(f"OCR detected Item ID: {item_id}")
-
-            # Process New Level area
-            new_level_roi_coords = self.roi_config["new_level_area"]
-            top, left, bottom, right = self._clamp_roi_coords(screen_capture, new_level_roi_coords)
-
-            if bottom > top and right > left:
-                new_level_image_cv2 = screen_capture[top:bottom, left:right]
-                new_level_results = self.reader.readtext(new_level_image_cv2, detail=0)
-                if new_level_results:
-                    # Attempt to extract a number for the level
-                    level_text = new_level_results[0].strip()
-                    try:
-                        new_level = int(level_text)
-                    except ValueError:
-                        new_level = "UNKNOWN_LEVEL" # Or handle as string if non-numeric
-                print(f"OCR detected New Level: {new_level}")
-
-            return item_id, new_level, max_loc # Returning max_loc for further analysis if needed
-        else:
-            # print(f"No upgrade event detected. Max confidence: {max_val:.2f}")
+        if not is_ego:
+            print("Detected screen is not an E.G.O. upgrade screen.")
             return None, None, None
+
+        # 2. Process Blue Area (Item Name + Level)
+        blue_roi = self.roi_config["blue_area_item"]
+        t, l, b, r = self._clamp_roi_coords(screen_capture, blue_roi)
+        blue_img = screen_capture[t:b, l:r]
+        blue_results = self.reader.readtext(blue_img, detail=0)
+
+        for text in blue_results:
+            # Look for level (usually a Roman numeral or number after 'Uptie' or similar)
+            # For simplicity, we look for digits or specific keywords.
+            if any(char.isdigit() for char in text):
+                # Extract digits
+                digits = ''.join(filter(str.isdigit, text))
+                if digits:
+                    detected_level = int(digits)
+            else:
+                # Assume it's the item name if it's not the level
+                if not detected_item or len(text) > len(detected_item):
+                    detected_item = text
+
+        print(f"OCR Result - Sinner: {detected_sinner}, Item: {detected_item}, Level: {detected_level}")
+        return detected_item, detected_level, max_loc
+

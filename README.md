@@ -1,45 +1,65 @@
-# Limbus-Company-Resource-Calculator
-School project for DEV460
+# Limbus Company Resource Calculator
+Companion app for tracking and visualizing resource costs in Limbus Company.
 
-## Windows Setup Instructions
+## Windows Download & Usage Instructions (Recommended)
 
-**Note:** These instructions are for running the application directly from the Python script. If you are using a bundled executable (e.g., created with PyInstaller), the Tesseract OCR and `TESSERACT_PATH` setup will be handled automatically, and you can skip sections 1 and 2.
+This application is designed as a "one-and-done" program. You do not need to install Python, Tesseract, or any other third-party utilities to use the Windows version.
 
-To run this application on Windows 10/11, please follow these additional steps:
+### 1. Download the Application
+*   Go to the [Releases](https://github.com/DireSpidar/Limbus-Company-Resource-Calculator/releases) page on GitHub.
+*   Download the latest `LimbusCalculator.zip` file.
+*   Extract the contents of the ZIP file to a folder of your choice.
 
-### 1. Install Tesseract OCR
+### 2. Run the Program
+*   Double-click on `LimbusCalculator.exe`.
+*   A console window will open, and the background screen recognition loop will start.
+*   The application will automatically open your web browser to `http://127.0.0.1:5000`.
 
-The application uses Tesseract OCR for image recognition. You need to install Tesseract on your system:
+### 3. How to Use the Tracker
+*   **Visualizer:** View your overall progress and costs to reach max level for all E.G.O.s.
+*   **Screen Recognition (OCR):** 
+    *   Click the **"Toggle OCR"** button in the bottom-right corner of the web interface to start or stop screen monitoring.
+    *   While active, the program watches for the E.G.O. upgrade screen in Limbus Company.
+    *   When an upgrade is detected, your progress is automatically updated in the tracker and reflected in the visualizer.
+*   **Manual Update:** You can also manually update item levels through the web interface if preferred.
 
-*   Download the installer from the [Tesseract OCR GitHub Releases page](https://github.com/UB-Mannheim/tesseract/wiki). Choose the appropriate `tesseract-ocr-w64-setup-vX.XX.XX.exe` for 64-bit Windows.
-*   Run the installer. During installation, ensure you select "Install for all users" and keep the default components. Make a note of the installation directory (e.g., `C:\Program Files\Tesseract-OCR`).
+---
 
-### 2. Set TESSERACT_PATH Environment Variable
+## Developer Setup (Running from Source)
 
-The application needs to know where to find the `tesseract.exe` executable.
+If you wish to run the application from the source code or contribute:
 
-*   Open the System Properties by searching for "Environment Variables" in the Windows search bar and selecting "Edit the system environment variables".
-*   Click on the "Environment Variables..." button.
-*   Under "User variables for <YourUsername>" or "System variables" (if you want it available for all users), click "New...".
-*   For "Variable name", enter `TESSERACT_PATH`.
-*   For "Variable value", enter the full path to the `tesseract.exe` file. For example, if you installed Tesseract to `C:\Program Files\Tesseract-OCR`, the value would be `C:\Program Files\Tesseract-OCR\tesseract.exe`.
-*   Click "OK" on all dialogs to save the changes.
-*   **Important:** You might need to restart your terminal or IDE for the new environment variable to take effect.
+### 1. Prerequisites
+*   Python 3.10 or higher.
+*   Standard developer tools (git).
 
-### 3. Activate Virtual Environment (Windows)
+### 2. Installation
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/DireSpidar/Limbus-Company-Resource-Calculator.git
+    cd Limbus-Company-Resource-Calculator
+    ```
+2.  Create and activate a virtual environment:
+    ```bash
+    python -m venv .venv
+    # Windows:
+    .venv\Scripts\activate
+    # Linux/macOS:
+    source .venv/bin/activate
+    ```
+3.  Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-To activate the Python virtual environment, use the following command in your terminal (e.g., PowerShell or Command Prompt) from the project root:
-
-```cmd
-.venv\Scripts\activate
+### 3. Run the Application
+```bash
+python src/main.py
 ```
 
-### 4. Run the Application (Windows)
-
-After activating the virtual environment and ensuring Tesseract is configured, you can run the application using:
-
-```cmd
-python src\app\main.py
+### 4. Building the Executable (Windows)
+To create a standalone EXE using PyInstaller:
+```bash
+pyinstaller main.spec
 ```
-
-The application should then be accessible via `http://127.0.0.1:5000` in your web browser.
+The resulting EXE will be located in the `dist/` folder.

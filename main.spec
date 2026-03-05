@@ -12,25 +12,43 @@ src_path = os.path.join(here, 'src')
 
 
 a = Analysis(
-    ['src/app/main.py'],
+    ['src/main.py'],
     pathex=[here], # Include the current directory in pathex
     binaries=[],
     datas=[
         (easyocr_models_path, 'easyocr_models'), # EasyOCR models
         (src_path, 'src'), # Include the whole src directory
     ],
-    hiddenimports=['easyocr'], # Add easyocr as a hidden import
-    # ... rest of the file
+    hiddenimports=['easyocr', 'mss', 'PIL', 'cv2', 'torch', 'torchvision'], # Add dependencies as hidden imports
+    hookspath=[],
+    hooksconfig={},
+    runtime_hooks=[],
+    excludes=[],
+    win_no_prefer_redirects=False,
+    win_private_assemblies=False,
+    cipher=block_cipher,
+    noarchive=False,
 )
-pyz = PYZ(a.pure)
+pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
 exe = EXE(
     pyz,
     a.scripts,
     a.binaries,
+    a.zipfiles,
     a.datas,
     [],
     name='LimbusCalculator', # Renamed executable
+    debug=False,
+    bootloader_ignore_signals=False,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    runtime_tmpdir=None,
     console=True, # Ensure console is enabled for debugging
-    # ... rest of the file
+    disable_windowed_traceback=False,
+    argv_emulation=False,
+    target_arch=None,
+    codesign_identity=None,
+    entitlements_file=None,
 )

@@ -4,7 +4,7 @@
             "id": "YI_SANG_EGO_01",
             "name": "Crow's Eye View",
             "sinner": "Yi Sang",
-            "current_uptie": 4,
+            "current_uptie": 0,
             "max_uptie": 4,
             "grade": "Zayin"
         },
@@ -68,7 +68,7 @@
             "id": "FAUST_EGO_01",
             "name": "Representation Emitter",
             "sinner": "Faust",
-            "current_uptie": 4,
+            "current_uptie": 0,
             "max_uptie": 4,
             "grade": "Zayin"
         },
@@ -140,7 +140,7 @@
             "id": "DON_QUIXOTE_EGO_01",
             "name": "La Sangre de Sancho",
             "sinner": "Don Quixote",
-            "current_uptie": 3,
+            "current_uptie": 0,
             "max_uptie": 4,
             "grade": "Zayin"
         },
@@ -212,7 +212,7 @@
             "id": "RYOSH_EGO_01",
             "name": "Forest for the Flames",
             "sinner": "Ry\u014dsh\u016b",
-            "current_uptie": 2,
+            "current_uptie": 0,
             "max_uptie": 4,
             "grade": "Zayin"
         },

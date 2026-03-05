@@ -2,6 +2,7 @@ import time
 import threading
 import sys
 import os
+import webbrowser
 
 # Add the project root to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -44,6 +45,11 @@ def main():
     # The `daemon=True` flag means the thread will exit when the main program exits.
     flask_thread = threading.Thread(target=app.run, kwargs={'host': '127.0.0.1', 'port': 5000}, daemon=True)
     flask_thread.start()
+
+    # Wait for the server to initialize then open the browser
+    print("Opening web interface...")
+    time.sleep(1.5)
+    webbrowser.open("http://127.0.0.1:5000")
 
     # Start the recognition loop in the main thread
     recognition_loop(recognizer, tracker)
