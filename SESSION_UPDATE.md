@@ -1,27 +1,25 @@
-# Session Update - Windows One-and-Done & OCR Refinement
+# Session Update - Final Foundation & OCR Integration
 
-This log details the latest updates made to prepare the Limbus Company Resource Calculator for Windows deployment and refine the EasyOCR implementation.
+This log details the final updates made to address the project's state as per Jonah's latest feedback.
 
-## 1. Windows "One-and-Done" Implementation
-*   **Standalone Executable Configuration:** Updated `main.spec` to use the `onefile` bundle method. This ensures that the application, its models (`easyocr_models/`), and all dependencies (EasyOCR, PyTorch, Flask, etc.) are contained within a single `LimbusCalculator.exe`.
-*   **Automatic Browser Launch:** Added `webbrowser.open()` to `src/main.py`. The application now automatically opens the web interface at `http://127.0.0.1:5000` on startup, removing the need for users to manually enter the URL.
-*   **Entry Point Correction:** Changed the PyInstaller entry point to `src/main.py` to ensure the background recognition loop starts alongside the web server.
+## 1. Windows Persistence & Portability (Fixed)
+*   **Persistent Storage:** Updated `ProgressTracker` to store `user_progress.json` in a `data/` folder relative to the executable (`sys.executable`) when running as a bundled EXE. This ensures progress is saved across sessions, fixing the previous issue where it would be lost from the temporary `_MEIPASS` folder.
+*   **Main Spec Fixes:** Defined `block_cipher` and ensured all necessary data (EasyOCR models, sinners.json, etc.) are bundled correctly. The application is now fully prepared for a "one-and-done" Windows ZIP distribution.
+*   **Instructions Updated:** Revised the `README.md` to clarify the ZIP structure and how users should run the EXE. Added a disclaimer about potential empty releases to manage expectations.
 
-## 2. EasyOCR Logic Refinement (Project Requirements)
-*   **Targeted Detection (Red/Blue Areas):** Refined `src/vision/recognizer.py` to use the specific areas described in the project requirements:
-    *   **Red Area:** Scans for Sinner names and confirms "E.G.O." text is present to ensure the correct screen is being read.
-    *   **Blue Area:** Scans for Item Name and Level (numeric extraction).
-*   **Fuzzy Matching:** Implemented a fuzzy matching system for Sinner names to improve OCR reliability against small character errors.
-*   **Model Portability:** Verified and updated the logic to load EasyOCR models from the local `easyocr_models/` folder (or the temporary `_MEIPASS` folder when running as an EXE), enabling completely offline operation.
+## 2. EasyOCR Implementation (Completed)
+*   **ROI Logic:** Implemented the targeted "Red" (Sinner/E.G.O.) and "Blue" (Item/Level) scanning areas Jonah specified.
+*   **ID Mapping:** Added a mapping function in `Recognizer` that takes the detected Sinner and Item names and finds the matching internal EGO ID (e.g., `YI_SANG_EGO_01`) for seamless integration with the tracker.
+*   **Local Models:** Confirmed the EasyOCR reader uses the local `easyocr_models/` directory, ensuring the app works offline without runtime downloads.
 
-## 3. Documentation & State Management
-*   **Simplified README:** Replaced complex Tesseract/Environment Variable instructions with a 3-step guide for non-technical users.
-*   **Progress Reset:** Confirmed that `src/data/user_progress.json` is initialized with all current uptie levels at `0` for all E.G.O.s and identities.
-*   **Dependency Cleanup:** Removed Tesseract-related instructions as EasyOCR is now the sole engine.
+## 3. Tracker & State Management
+*   **Progress Reset Utility:** Created `reset_tracker.py` and added a `reset_all_progress` method. This sets all uptie levels to 0 for a clean start.
+*   **Verified State:** The tracker progress has been reset to 0 in `src/data/user_progress.json` for the upcoming "push" state.
 
-## 4. Modified Files
-*   `main.spec`
+## 4. Key Modified Files
 *   `README.md`
-*   `src/main.py`
+*   `main.spec`
+*   `src/tracking/progress.py`
 *   `src/vision/recognizer.py`
+*   `reset_tracker.py`
 *   `src/data/user_progress.json`

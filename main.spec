@@ -10,6 +10,7 @@ easyocr_models_path = os.path.join(here, 'easyocr_models')
 # Define the path to the src directory
 src_path = os.path.join(here, 'src')
 
+block_cipher = None
 
 a = Analysis(
     ['src/main.py'],

@@ -3,12 +3,13 @@ Companion app for tracking and visualizing resource costs in Limbus Company.
 
 ## Windows Download & Usage Instructions (Recommended)
 
-This application is designed as a "one-and-done" program. You do not need to install Python, Tesseract, or any other third-party utilities to use the Windows version.
+This application is designed as a "one-and-done" program. You do not need to install Python or any other third-party utilities to use the Windows version.
 
 ### 1. Download the Application
 *   Go to the [Releases](https://github.com/DireSpidar/Limbus-Company-Resource-Calculator/releases) page on GitHub.
 *   Download the latest `LimbusCalculator.zip` file.
 *   Extract the contents of the ZIP file to a folder of your choice.
+    *   *Note: If the Releases page is empty, a pre-built version is not yet available. Please see "Building from Source" below.*
 
 ### 2. Run the Program
 *   Double-click on `LimbusCalculator.exe`.
@@ -20,6 +21,8 @@ This application is designed as a "one-and-done" program. You do not need to ins
 *   **Screen Recognition (OCR):** 
     *   Click the **"Toggle OCR"** button in the bottom-right corner of the web interface to start or stop screen monitoring.
     *   While active, the program watches for the E.G.O. upgrade screen in Limbus Company.
+    *   **Red Area (Top-Left):** The program looks here for the Sinner name and the text "E.G.O." to confirm the upgrade screen.
+    *   **Blue Area (Bottom-Right):** The program looks here for the Item Name and the new Level.
     *   When an upgrade is detected, your progress is automatically updated in the tracker and reflected in the visualizer.
 *   **Manual Update:** You can also manually update item levels through the web interface if preferred.
 
@@ -27,11 +30,8 @@ This application is designed as a "one-and-done" program. You do not need to ins
 
 ## Developer Setup (Running from Source)
 
-If you wish to run the application from the source code or contribute:
-
 ### 1. Prerequisites
 *   Python 3.10 or higher.
-*   Standard developer tools (git).
 
 ### 2. Installation
 1.  Clone the repository:
@@ -42,10 +42,7 @@ If you wish to run the application from the source code or contribute:
 2.  Create and activate a virtual environment:
     ```bash
     python -m venv .venv
-    # Windows:
-    .venv\Scripts\activate
-    # Linux/macOS:
-    source .venv/bin/activate
+    .venv\Scripts\activate # Windows
     ```
 3.  Install dependencies:
     ```bash
@@ -58,8 +55,8 @@ python src/main.py
 ```
 
 ### 4. Building the Executable (Windows)
-To create a standalone EXE using PyInstaller:
+To create the standalone EXE:
 ```bash
 pyinstaller main.spec
 ```
-The resulting EXE will be located in the `dist/` folder.
+Then, create a ZIP file containing the resulting `LimbusCalculator.exe` from `dist/` and the `data/` folder to ensure persistent progress.
