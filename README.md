@@ -149,13 +149,6 @@ Planned improvements include:
 
 ---
 
-# Contributors
-
-- Joel Koszorus
-- DireSpidar
-
----
-
 # License
 
 This project is intended for educational use.
