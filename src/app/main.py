@@ -83,6 +83,18 @@ def create_app(tracker):
         """API endpoint to get the current progress data."""
         return jsonify(tracker.progress)
 
+    @app.route('/api/ocr_status')
+    def get_ocr_status():
+        """API endpoint to get the current OCR monitoring state."""
+        return jsonify({"enabled": tracker.ocr_enabled})
+
+    @app.route('/api/toggle_ocr', methods=['POST'])
+    def toggle_ocr():
+        """API endpoint to toggle the OCR monitoring state."""
+        tracker.ocr_enabled = not tracker.ocr_enabled
+        print(f"OCR Monitoring {'enabled' if tracker.ocr_enabled else 'disabled'}.")
+        return jsonify({"enabled": tracker.ocr_enabled})
+
     @app.route('/visualizer')
     def visualizer():
         """Renders the progress visualizer page."""

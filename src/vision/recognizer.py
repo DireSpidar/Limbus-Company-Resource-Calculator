@@ -32,15 +32,25 @@ class Recognizer:
         # Initialize EasyOCR reader
         # For bundled application, models need to be included in the bundle.
         # For development, easyocr will download models to its default location (~/.EasyOCR/model)
+        
+        # Determine base directory of the project
+        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+        easyocr_model_dir = os.path.join(base_dir, 'easyocr_models')
+
         if getattr(sys, 'frozen', False):
             # Running as a PyInstaller bundle
             application_path = sys._MEIPASS
-            easyocr_model_dir = os.path.join(application_path, 'easyocr_models')
-            # Ensure models are copied to easyocr_models during PyInstaller build
-            self.reader = easyocr.Reader(['en'], model_storage_directory=easyocr_model_dir, download_iter=0)
+            bundle_model_dir = os.path.join(application_path, 'easyocr_models')
+            self.reader = easyocr.Reader(['en'], model_storage_directory=bundle_model_dir)
         else:
             # Running as a script (development)
-            self.reader = easyocr.Reader(['en'], download_iter=0) # download_iter=0 prevents automatic downloads if not found
+            # Use the local easyocr_models folder if it exists
+            if os.path.exists(easyocr_model_dir):
+                print(f"Using EasyOCR models from: {easyocr_model_dir}")
+                self.reader = easyocr.Reader(['en'], model_storage_directory=easyocr_model_dir)
+            else:
+                print("Local easyocr_models folder not found. EasyOCR will use default storage.")
+                self.reader = easyocr.Reader(['en'])
 
     def capture_screen(self):
         """Captures the screen and returns it as an OpenCV-compatible BGR NumPy array."""

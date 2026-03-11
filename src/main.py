@@ -10,6 +10,27 @@ from src.vision.recognizer import Recognizer
 from src.tracking.progress import ProgressTracker
 from src.app.main import create_app
 
+def recognition_loop(recognizer, tracker):
+    """
+    Continuous loop that monitors the screen for upgrade events
+    when OCR monitoring is enabled in the tracker.
+    """
+    print("Starting background recognition loop...")
+    while True:
+        if tracker.ocr_enabled:
+            # print("OCR Monitoring is active. Capturing screen...") # Too noisy
+            screen = recognizer.capture_screen()
+            item_id, new_level, _ = recognizer.detect_upgrade_event(screen)
+
+            if item_id and new_level != "UNKNOWN_LEVEL" and item_id != "UNKNOWN_ITEM":
+                print(f"Detected upgrade: {item_id} -> Level {new_level}")
+                # Update the tracker. We assume 'E.G.O.' for now as per the prototype's focus.
+                # In a more advanced version, we'd determine the item type too.
+                tracker.update_item_level('E.G.O.', item_id, new_level)
+        
+        # Sleep to reduce CPU usage. Adjust as needed.
+        time.sleep(1)
+
 def main():
     """Main function to initialize and run the application components."""
     print("Initializing Limbus Company Progress Tracker...")
