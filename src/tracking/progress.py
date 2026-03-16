@@ -1,3 +1,4 @@
+
 import json
 import sys
 from pathlib import Path
@@ -118,15 +119,6 @@ class ProgressTracker:
     def reload_items(self):
         self.items_data = self._load_json_file(self.items_file, default={})
 
-    def _load_ego_costs(self):
-        return self._load_json_file(self.ego_costs_file, default={})
-
-    def _load_sinners(self):
-        return self._load_json_file(self.sinners_file, default={})
-
-    def _load_items_data(self):
-        return self._load_json_file(self.items_file, default={})
-
     def reset_all_progress(self):
         print("Resetting all progress to 0...")
         for item_type in ["E.G.O.", "identities"]:
@@ -188,5 +180,3 @@ class ProgressTracker:
                 "percentage": 0
             }
         }
-            
-        
