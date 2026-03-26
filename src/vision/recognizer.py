@@ -4,6 +4,12 @@ import easyocr
 from PIL import Image
 
 
+class Recognizer:
+    def __init__(self):
+        print("Loading EasyOCR...")
+        self.reader = easyocr.Reader(['en'], gpu=False)
+        print("EasyOCR loaded successfully.")
+        
         # Placeholder for ROI configurations.
         # In a real application, this would be loaded from a config file (e.g., JSON, YAML)
         # and would contain coordinates for various UI elements based on monitor resolution.
