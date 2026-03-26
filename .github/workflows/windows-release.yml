@@ -31,9 +31,11 @@ jobs:
         run: |
           pyinstaller main.spec
 
-      - name: Zip Release
+      - name: Create Self-Extracting EXE
         run: |
-          powershell Compress-Archive -Path dist/LimbusCalculator -DestinationPath LimbusCalculator-Windows.zip
+          # Use 7z to create a self-extracting archive
+          # 'a' adds to archive, '-sfx' makes it self-extracting
+          7z a -sfx LimbusCalculator-Windows.exe ./dist/LimbusCalculator/*
 
       - name: Create/Update Release
         uses: softprops/action-gh-release@v2
@@ -42,6 +44,6 @@ jobs:
           name: Windows Build (Development)
           draft: false
           prerelease: true
-          files: LimbusCalculator-Windows.zip
+          files: LimbusCalculator-Windows.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
