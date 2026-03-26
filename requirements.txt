@@ -4,6 +4,8 @@ numpy
 Pillow
 opencv-python
 easyocr
+pygetwindow
+pyautogui
 
 # For the companion app UI
 Flask

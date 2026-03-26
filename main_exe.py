@@ -4,8 +4,8 @@ import sys
 import os
 import webbrowser
 
-# Add the project root to the Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Ensure the current directory is in the path so we can find 'src'
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 from src.vision.recognizer import Recognizer
 from src.tracking.progress import ProgressTracker
@@ -19,24 +19,23 @@ def recognition_loop(recognizer, tracker):
     """
     print("Starting background recognition loop...")
 
+    # Create a mapping from name to ID for E.G.O.s
+    ego_name_to_id = {}
+    for ego in tracker.progress.get('E.G.O.', []):
+        ego_name_to_id[ego['name']] = ego['id']
+
     while True:
         try:
             if tracker.ocr_enabled:
                 screen = recognizer.capture_screen()
-                item_id, new_level, item_type = recognizer.detect_upgrade_event(screen)
+                item_name, new_level, _ = recognizer.detect_upgrade_event(screen)
 
-                if (
-                    item_id
-                    and new_level != "UNKNOWN_LEVEL"
-                    and item_id != "UNKNOWN_ITEM"
-                ):
-                    print(f"Detected upgrade: {item_id} -> Level {new_level}")
-
-                    # Default fallback if item_type is missing
-                    if not item_type:
-                        item_type = "E.G.O"
-
-                    tracker.update_item_level(item_type, item_id, new_level)
+                if item_name != "UNKNOWN_ITEM" and new_level != "UNKNOWN_LEVEL":
+                    item_id = ego_name_to_id.get(item_name)
+                    if item_id:
+                        print(f"Detected upgrade: {item_name} ({item_id}) -> Level {new_level}")
+                        # Update the tracker.
+                        tracker.update_item_level('E.G.O.', item_id, new_level)
 
             # Sleep to reduce CPU usage
             time.sleep(1)
@@ -59,8 +58,12 @@ def main():
     print("Initializing Limbus Company Progress Tracker...")
 
     # Initialize components
-    recognizer = Recognizer()
     tracker = ProgressTracker()
+    
+    # Extract E.G.O. names for the recognizer
+    ego_names = [ego['name'] for ego in tracker.progress.get('E.G.O.', [])]
+    recognizer = Recognizer(ego_names=ego_names)
+    
     app = create_app(tracker)
 
     # Start Flask in a background thread

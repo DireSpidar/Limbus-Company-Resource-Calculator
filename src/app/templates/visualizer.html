@@ -143,6 +143,14 @@
                 .then(data => updateOCRButton(data.enabled))
                 .catch(error => console.error('Error toggling OCR:', error));
         });
+
+        // Auto-refresh the page every 10 seconds to show OCR updates
+        // Only refresh if the page is visible to save resources
+        setInterval(() => {
+            if (!document.hidden) {
+                window.location.reload();
+            }
+        }, 10000);
     </script>
 </body>
 </html>
