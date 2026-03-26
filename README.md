@@ -1,45 +1,164 @@
-# Limbus-Company-Resource-Calculator
-School project for DEV460
+# Limbus Company Resource Calculator
 
-## Windows Setup Instructions
+A resource tracking tool for **Limbus Company** that uses **OCR screen recognition** to automatically detect upgrades and update resource progress in real time.
 
-**Note:** These instructions are for running the application directly from the Python script. If you are using a bundled executable (e.g., created with PyInstaller), the Tesseract OCR and `TESSERACT_PATH` setup will be handled automatically, and you can skip sections 1 and 2.
+This project was developed for **DEV460**.
 
-To run this application on Windows 10/11, please follow these additional steps:
+---
 
-### 1. Install Tesseract OCR
+# Features
 
-The application uses Tesseract OCR for image recognition. You need to install Tesseract on your system:
+- Automatic **OCR detection of upgrades**
+- Real-time **resource tracking**
+- Simple **web-based interface**
+- Toggle OCR monitoring on/off
+- Works while the game is running
 
-*   Download the installer from the [Tesseract OCR GitHub Releases page](https://github.com/UB-Mannheim/tesseract/wiki). Choose the appropriate `tesseract-ocr-w64-setup-vX.XX.XX.exe` for 64-bit Windows.
-*   Run the installer. During installation, ensure you select "Install for all users" and keep the default components. Make a note of the installation directory (e.g., `C:\Program Files\Tesseract-OCR`).
+---
 
-### 2. Set TESSERACT_PATH Environment Variable
+# Requirements
 
-The application needs to know where to find the `tesseract.exe` executable.
+Before running the project you must install:
 
-*   Open the System Properties by searching for "Environment Variables" in the Windows search bar and selecting "Edit the system environment variables".
-*   Click on the "Environment Variables..." button.
-*   Under "User variables for <YourUsername>" or "System variables" (if you want it available for all users), click "New...".
-*   For "Variable name", enter `TESSERACT_PATH`.
-*   For "Variable value", enter the full path to the `tesseract.exe` file. For example, if you installed Tesseract to `C:\Program Files\Tesseract-OCR`, the value would be `C:\Program Files\Tesseract-OCR\tesseract.exe`.
-*   Click "OK" on all dialogs to save the changes.
-*   **Important:** You might need to restart your terminal or IDE for the new environment variable to take effect.
+- Python **3.9+**
+- Required Python packages
 
-### 3. Activate Virtual Environment (Windows)
+---
 
-To activate the Python virtual environment, use the following command in your terminal (e.g., PowerShell or Command Prompt) from the project root:
+# Installation
 
-```cmd
-.venv\Scripts\activate
-```
+## 1. Download the Project
 
-### 4. Run the Application (Windows)
+Download the repository:
 
-After activating the virtual environment and ensuring Tesseract is configured, you can run the application using:
+**Code → Download ZIP**
 
-```cmd
-python src\app\main.py
-```
+Extract the folder.
 
-The application should then be accessible via `http://127.0.0.1:5000` in your web browser.
+Example folder structure:
+
+Documents
+  Limbus-Company-Resource-Calculator
+
+
+Or clone with Git:
+
+git clone https://github.com/DireSpidar/Limbus-Company-Resource-Calculator.git
+
+
+---
+
+# 2. Install Dependencies
+
+Open a terminal inside the project folder and run:
+
+pip install -r requirements.txt
+
+If that does not work, install the packages manually:
+
+pip install easyocr pyautogui pillow numpy flask
+
+
+---
+
+# Running the Application
+
+Start the application with:
+
+python main_exe.py
+
+You should see something like:
+
+Initializing Limbus Company Progress Tracker...
+Starting background recognition loop...
+Running on http://127.0.0.1:5000
+
+
+Your browser should open automatically.
+
+If it does not open, go to:
+
+http://127.0.0.1:5000
+
+
+---
+
+# Using the Tracker
+
+1. Launch the tracker.
+2. Start **Limbus Company**.
+3. Enable **OCR Monitoring** in the web interface.
+4. Play normally.
+
+When upgrade screens appear, the tracker will detect them and update the resource tracker automatically.
+
+---
+
+# Stopping the Program
+
+Return to the terminal window and press:
+
+CTRL + C
+
+
+---
+
+# Troubleshooting
+
+### Missing Python Module
+
+Example error:
+
+ModuleNotFoundError: No module named 'pyautogui'
+
+Fix by installing the package:
+
+pip install pyautogui
+
+
+---
+
+### Browser Does Not Open
+
+Open it manually:
+
+http://127.0.0.1:5000
+
+
+---
+
+### OCR Not Detecting Upgrades
+
+Make sure:
+
+- The game window is visible
+- OCR monitoring is enabled
+- The upgrade screen is readable
+
+---
+
+# Future Improvements
+
+Planned improvements include:
+
+- One-click `.exe` installer
+- Improved OCR accuracy
+- GPU acceleration for OCR
+- Lower CPU usage
+- UI improvements
+
+---
+
+# License
+
+This project is intended for educational use.
+
+
+
+
+
+
+
+
+
+

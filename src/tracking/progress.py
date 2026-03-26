@@ -12,6 +12,7 @@ class ProgressTracker:
         self.items_data = self._load_items_data() # Load items data for identities
         self._initialize_progress_if_needed()
         self.progress = self.load_progress() # Load the actual progress after initialization
+        self.ocr_enabled = False # New attribute for tracking OCR monitoring state
 
     def _load_sinners(self):
         """Loads sinner data from a file."""
