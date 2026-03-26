@@ -2,35 +2,37 @@
 import os
 import sys
 
-# Get the directory of the spec file
 here = os.path.dirname(os.path.abspath(sys.argv[0]))
-
-# Define the path to EasyOCR models relative to the project root
 easyocr_models_path = os.path.join(here, 'easyocr_models')
-# Define the path to the src directory
 src_path = os.path.join(here, 'src')
 
-
 a = Analysis(
-    ['src/app/main.py'],
-    pathex=[here], # Include the current directory in pathex
+    ['main_exe.py'],
+    pathex=[here],
     binaries=[],
     datas=[
-        (easyocr_models_path, 'easyocr_models'), # EasyOCR models
-        (src_path, 'src'), # Include the whole src directory
+        (easyocr_models_path, 'easyocr_models'),
+        (src_path, 'src'),
     ],
-    hiddenimports=['easyocr'], # Add easyocr as a hidden import
-    # ... rest of the file
+    hiddenimports=['easyocr', 'flask', 'pyautogui'],
+    hookspath=[],
+    hooksconfig={},
+    runtime_hooks=[],
+    excludes=[],
+    noarchive=False,
 )
 pyz = PYZ(a.pure)
-
 exe = EXE(
     pyz,
     a.scripts,
     a.binaries,
     a.datas,
     [],
-    name='LimbusCalculator', # Renamed executable
-    console=True, # Ensure console is enabled for debugging
-    # ... rest of the file
+    name='LimbusCalculator',
+    debug=False,
+    bootloader_ignore_signals=False,
+    strip=False,
+    upx=True,
+    console=True,
+    disable_windowed_traceback=False,
 )
