@@ -1,0 +1,47 @@
+name: Build and Release Windows Binary
+
+on:
+  push:
+    branches:
+      - V1-Foundation-Web-App-Win-joel
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build with PyInstaller
+        run: |
+          pyinstaller main.spec
+
+      - name: Zip Release
+        run: |
+          powershell Compress-Archive -Path dist/LimbusCalculator -DestinationPath LimbusCalculator-Windows.zip
+
+      - name: Create/Update Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: dev-windows-build
+          name: Windows Build (Development)
+          draft: false
+          prerelease: true
+          files: LimbusCalculator-Windows.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
