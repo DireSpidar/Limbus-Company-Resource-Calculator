@@ -17,41 +17,67 @@ def recognition_loop(recognizer, tracker):
     """
     print("Starting background recognition loop...")
     
-    # Create a mapping from name to ID for E.G.O.s
-    ego_name_to_id = {}
-    for ego in tracker.progress.get('E.G.O.', []):
-        ego_name_to_id[ego['name']] = ego['id']
+    # Create a mapping from (sinner_name, ego_name) to ID for E.G.O.s
+    ego_map = {}
+    for sinner in tracker.sinners.get('sinners', []):
+        s_name = sinner['name']
+        for ego in sinner['egos']:
+            ego_map[(s_name, ego['name'])] = ego['id']
 
     # State tracking to avoid spamming the same detection
     last_detected_levels = {}
 
     while True:
-        if tracker.ocr_enabled:
-            # print("OCR Monitoring is active. Capturing screen...") # Too noisy
-            screen = recognizer.capture_screen()
-            detections = recognizer.detect_upgrade_event(screen)
+        try:
+            if tracker.ocr_enabled:
+                screen = recognizer.capture_screen()
+                if screen:
+                    sinner_name, detections = recognizer.detect_upgrade_event(screen)
 
-            for item_name, new_level, _ in detections:
-                item_id = ego_name_to_id.get(item_name)
-                if item_id:
-                    # Check if this is a new detection or a level change
-                    if last_detected_levels.get(item_id) != new_level:
-                        # Also check tracker's current value to avoid redundant saves
-                        current_val = 0
-                        for ego in tracker.progress.get('E.G.O.', []):
-                            if ego['id'] == item_id:
-                                current_val = ego.get('current_uptie', 0)
-                                break
+                    if detections:
+                        print(f"OCR Detections on screen (Sinner: {sinner_name or 'Unknown'}): {detections}")
+
+                    for ego_name, new_level, _ in detections:
+                        # If we have a detected sinner, use it to get the unique ID
+                        item_id = None
+                        if sinner_name:
+                            item_id = ego_map.get((sinner_name, ego_name))
                         
-                        if current_val != new_level:
-                            print(f"Detected upgrade: {item_name} ({item_id}) -> Level {new_level}")
-                            tracker.update_item_level('E.G.O.', item_id, new_level)
+                        if not item_id:
+                            # Fallback: check if the ego name is unique across all sinners
+                            possible_ids = [i_d for (s_n, e_n), i_d in ego_map.items() if e_n == ego_name]
+                            if len(possible_ids) == 1:
+                                item_id = possible_ids[0]
+                            elif len(possible_ids) > 1:
+                                # Don't update if we can't be sure which sinner it belongs to
+                                if not sinner_name:
+                                    print(f"Ambiguous EGO '{ego_name}' detected. Need Sinner detection to update.")
+                                continue
                         
-                        # Update local state
-                        last_detected_levels[item_id] = new_level
+                        if item_id:
+                            # Check if this is a new detection or a level change
+                            if last_detected_levels.get(item_id) != new_level:
+                                # Get current value from tracker
+                                current_val = 0
+                                for ego in tracker.progress.get('E.G.O.', []):
+                                    if ego['id'] == item_id:
+                                        current_val = ego.get('current_uptie', 0)
+                                        break
+                                
+                                if current_val != new_level:
+                                    print(f"Detected upgrade: {ego_name} for {sinner_name or 'Unknown'} ({item_id}) -> Level {new_level}")
+                                    tracker.update_item_level('E.G.O.', item_id, new_level)
+                                
+                                # Update local state
+                                last_detected_levels[item_id] = new_level
+                else:
+                    # No screen captured (maybe window minimized)
+                    pass
+        except Exception as e:
+            print(f"Error in recognition loop: {e}")
         
-        # Sleep to reduce CPU usage. Adjust as needed.
-        time.sleep(1)
+        # Sleep to reduce CPU usage.
+        time.sleep(2)
 
 def main():
     """Main function to initialize and run the application components."""
@@ -60,14 +86,12 @@ def main():
     # Initialize components
     tracker = ProgressTracker()
     
-    # Extract E.G.O. names for the recognizer
-    ego_names = [ego['name'] for ego in tracker.progress.get('E.G.O.', [])]
-    recognizer = Recognizer(ego_names=ego_names)
+    # Initialize Recognizer with full sinners data for Sinner-aware detection
+    recognizer = Recognizer(sinners_data=tracker.sinners.get('sinners', []))
     
     app = create_app(tracker)
 
     # Run the Flask app in a separate thread
-    # The `daemon=True` flag means the thread will exit when the main program exits.
     flask_thread = threading.Thread(target=app.run, kwargs={'host': '127.0.0.1', 'port': 5000}, daemon=True)
     flask_thread.start()
 

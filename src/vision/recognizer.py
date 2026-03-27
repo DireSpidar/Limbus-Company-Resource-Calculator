@@ -12,9 +12,17 @@ import math
 
 
 class Recognizer:
-    def __init__(self, ego_names=None):
+    def __init__(self, sinners_data=None):
         print("Loading EasyOCR...")
-        self.ego_names = ego_names or []
+        self.sinners_data = sinners_data or []
+        self.sinner_names = [s["name"] for s in self.sinners_data]
+        # Flatten EGO names for general search if needed, but we'll prefer scoped search
+        self.all_ego_names = []
+        for s in self.sinners_data:
+            for ego in s["egos"]:
+                if ego["name"] not in self.all_ego_names:
+                    self.all_ego_names.append(ego["name"])
+        
         # Determine base directory
         base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
         easyocr_model_dir = os.path.join(base_dir, 'easyocr_models')
@@ -35,6 +43,9 @@ class Recognizer:
             windows = gw.getWindowsWithTitle('LimbusCompany')
             if windows:
                 win = windows[0]
+                # Check if window is minimized
+                if win.isMinimized:
+                    return None
                 return {"top": win.top, "left": win.left, "width": win.width, "height": win.height}
         except Exception as e:
             print(f"Error finding game window: {e}")
@@ -42,12 +53,12 @@ class Recognizer:
 
     def capture_screen(self):
         window_rect = self.find_game_window()
+        if not window_rect:
+            return None
+            
         with mss() as sct:
-            if window_rect:
-                monitor = {"top": window_rect["top"], "left": window_rect["left"], "width": window_rect["width"], "height": window_rect["height"]}
-                screenshot = sct.grab(monitor)
-            else:
-                screenshot = sct.grab(sct.monitors[1])
+            monitor = {"top": window_rect["top"], "left": window_rect["left"], "width": window_rect["width"], "height": window_rect["height"]}
+            screenshot = sct.grab(monitor)
             return Image.frombytes("RGB", screenshot.size, screenshot.bgra, "raw", "BGRX")
 
     def preprocess_image(self, image):
@@ -62,17 +73,20 @@ class Recognizer:
         return sharpened
 
     def detect_upgrade_event(self, screen):
+        if screen is None:
+            return None, []
+            
         img_np = np.array(screen)
         results = self.reader.readtext(img_np)
-        detections = self._process_ocr_results(results)
+        sinner, detections = self._process_ocr_results(results)
         
-        if not detections:
-            # print("No detections in raw image, trying preprocessed...")
+        if not detections and not sinner:
+            # Try preprocessed for better luck
             proc_img = self.preprocess_image(screen)
             results_proc = self.reader.readtext(proc_img)
-            detections = self._process_ocr_results(results_proc)
+            sinner, detections = self._process_ocr_results(results_proc)
             
-        return detections
+        return sinner, detections
 
     def _get_center(self, bbox):
         x_coords = [p[0] for p in bbox]
@@ -81,6 +95,7 @@ class Recognizer:
 
     def _process_ocr_results(self, results):
         found_items = []
+        detected_sinner = None
         
         # Level Patterns (I, II, III, IV)
         lvl_map = {
@@ -90,20 +105,44 @@ class Recognizer:
             r'(I|1|l|!)': 1
         }
 
-        # First pass: find all E.G.O. names
+        # Step 1: Detect Sinner
+        for (bbox, text, conf) in results:
+            text_clean = text.strip()
+            for s_name in self.sinner_names:
+                # Use regex for more robust name matching (e.g. "Yi Sang" vs "YI SANG")
+                if re.search(rf'\b{re.escape(s_name)}\b', text_clean, re.IGNORECASE):
+                    detected_sinner = s_name
+                    break
+            if detected_sinner:
+                break
+
+        # Step 2: Determine which EGOs to look for
+        valid_ego_names = []
+        if detected_sinner:
+            for s in self.sinners_data:
+                if s["name"] == detected_sinner:
+                    valid_ego_names = [e["name"] for e in s["egos"]]
+                    break
+        else:
+            # If no sinner detected, we can't reliably differentiate duplicates, 
+            # but we can still return them and let the caller decide or just return all
+            valid_ego_names = self.all_ego_names
+
+        # Step 3: Find E.G.O. names
         egos_on_screen = []
         for (bbox, text, conf) in results:
             text_clean = text.strip()
-            for ego_name in self.ego_names:
+            for ego_name in valid_ego_names:
                 if ego_name.lower() in text_clean.lower():
                     egos_on_screen.append({
                         "name": ego_name,
                         "center": self._get_center(bbox),
                         "text": text_clean
                     })
-                    break
+                    # Don't break here, one text block might contain multiple info 
+                    # (though unlikely for ego names)
 
-        # Second pass: for each E.G.O., find the most likely level
+        # Step 4: for each E.G.O., find the most likely level
         for ego in egos_on_screen:
             detected_level = None
             
@@ -129,4 +168,5 @@ class Recognizer:
             if detected_level:
                 found_items.append((ego["name"], detected_level, "E.G.O"))
 
-        return found_items
+        return detected_sinner, found_items
+
