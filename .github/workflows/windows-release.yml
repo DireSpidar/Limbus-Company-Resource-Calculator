@@ -31,12 +31,6 @@ jobs:
         run: |
           pyinstaller main.spec
 
-      - name: Create Self-Extracting EXE
-        run: |
-          # Use 7z to create a self-extracting archive
-          # 'a' adds to archive, '-sfx' makes it self-extracting
-          7z a -sfx LimbusCalculator-Windows.exe ./dist/LimbusCalculator/*
-
       - name: Create/Update Release
         uses: softprops/action-gh-release@v2
         with:
@@ -44,6 +38,6 @@ jobs:
           name: Windows Build (Development)
           draft: false
           prerelease: true
-          files: LimbusCalculator-Windows.exe
+          files: dist/LimbusCalculator.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

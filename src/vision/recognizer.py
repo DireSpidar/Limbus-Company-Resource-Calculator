@@ -15,12 +15,6 @@ class Recognizer:
     def __init__(self, ego_names=None):
         print("Loading EasyOCR...")
         self.ego_names = ego_names or []
-        # ROI config is kept for future specific crops, but we use full window for now.
-        self.roi_config = {
-            "item_id_area": {"top": 515, "left": 860, "width": 200, "height": 50},
-            "new_level_area": {"top": 575, "left": 860, "width": 150, "height": 30}
-        }
-        
         # Determine base directory
         base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
         easyocr_model_dir = os.path.join(base_dir, 'easyocr_models')
@@ -57,26 +51,23 @@ class Recognizer:
             return Image.frombytes("RGB", screenshot.size, screenshot.bgra, "raw", "BGRX")
 
     def preprocess_image(self, image):
+        # Convert to grayscale and upscale significantly to help with tiny/stylized level text
         open_cv_image = np.array(image)
         open_cv_image = cv2.cvtColor(open_cv_image, cv2.COLOR_RGB2BGR)
         gray = cv2.cvtColor(open_cv_image, cv2.COLOR_BGR2GRAY)
-        gray = cv2.resize(gray, None, fx=1.5, fy=1.5, interpolation=cv2.INTER_CUBIC)
-        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
-        contrast = clahe.apply(gray)
-        return contrast
+        gray = cv2.resize(gray, None, fx=2.5, fy=2.5, interpolation=cv2.INTER_LANCZOS4)
+        # Apply sharpening to make stylized fonts clearer
+        kernel = np.array([[-1,-1,-1], [-1,9,-1], [-1,-1,-1]])
+        sharpened = cv2.filter2D(gray, -1, kernel)
+        return sharpened
 
     def detect_upgrade_event(self, screen):
-        """
-        Main entry point for detection. Now returns a LIST of (item_id, level, item_type).
-        """
-        # We use raw image first as it's often cleaner for standard fonts
         img_np = np.array(screen)
-        results = self.reader.readtext(img_np) # detail=1 gives coords
-        
+        results = self.reader.readtext(img_np)
         detections = self._process_ocr_results(results)
         
-        # If nothing found, try preprocessed
         if not detections:
+            # print("No detections in raw image, trying preprocessed...")
             proc_img = self.preprocess_image(screen)
             results_proc = self.reader.readtext(proc_img)
             detections = self._process_ocr_results(results_proc)
@@ -84,55 +75,58 @@ class Recognizer:
         return detections
 
     def _get_center(self, bbox):
-        """Calculates center of a bounding box [[x,y], [x,y], [x,y], [x,y]]."""
         x_coords = [p[0] for p in bbox]
         y_coords = [p[1] for p in bbox]
         return (sum(x_coords) / 4, sum(y_coords) / 4)
 
     def _process_ocr_results(self, results):
-        """Matches found E.G.O. names to the nearest level indicator."""
-        found_names = []
-        found_levels = []
+        found_items = []
+        
+        # Level Patterns (I, II, III, IV)
+        lvl_map = {
+            r'(IV|1V|lV|!V)': 4,
+            r'(III|111|lll|\|\|\|)': 3,
+            r'(II|11|ll|\|\|)': 2,
+            r'(I|1|l|!)': 1
+        }
 
+        # First pass: find all E.G.O. names
+        egos_on_screen = []
         for (bbox, text, conf) in results:
             text_clean = text.strip()
-            center = self._get_center(bbox)
-
-            # 1. Look for E.G.O. Names
             for ego_name in self.ego_names:
                 if ego_name.lower() in text_clean.lower():
-                    found_names.append({"name": ego_name, "center": center})
+                    egos_on_screen.append({
+                        "name": ego_name,
+                        "center": self._get_center(bbox),
+                        "text": text_clean
+                    })
                     break
 
-            # 2. Look for Levels (I, II, III, IV)
-            level = None
-            if re.search(r'\b(IV|1V|lV|!V)\b', text_clean): level = 4
-            elif re.search(r'\b(III|111|lll|\|\|\|)\b', text_clean): level = 3
-            elif re.search(r'\b(II|11|ll|\|\|)\b', text_clean): level = 2
-            elif re.search(r'\b(I|1|l|!)\b', text_clean): level = 1
+        # Second pass: for each E.G.O., find the most likely level
+        for ego in egos_on_screen:
+            detected_level = None
             
-            if level:
-                found_levels.append({"level": level, "center": center})
+            # 1. Check same text block
+            for pattern, val in lvl_map.items():
+                if re.search(pattern, ego["text"]):
+                    detected_level = val
+                    break
+            
+            # 2. Look for nearest level indicator
+            if not detected_level:
+                min_dist = 600 # Broad radius
+                for (bbox, text, conf) in results:
+                    text_clean = text.strip()
+                    for pattern, val in lvl_map.items():
+                        if re.search(pattern, text_clean):
+                            dist = math.sqrt((ego["center"][0] - self._get_center(bbox)[0])**2 + 
+                                             (ego["center"][1] - self._get_center(bbox)[1])**2)
+                            if dist < min_dist:
+                                min_dist = dist
+                                detected_level = val
+            
+            if detected_level:
+                found_items.append((ego["name"], detected_level, "E.G.O"))
 
-        # Match names to closest levels
-        final_detections = []
-        for name_obj in found_names:
-            closest_level = "UNKNOWN_LEVEL"
-            min_dist = float('inf')
-
-            for level_obj in found_levels:
-                # Euclidean distance
-                dist = math.sqrt((name_obj["center"][0] - level_obj["center"][0])**2 + 
-                                 (name_obj["center"][1] - level_obj["center"][1])**2)
-                
-                # In Limbus, the level is usually close horizontally or slightly below/above
-                if dist < min_dist:
-                    min_dist = dist
-                    closest_level = level_obj["level"]
-
-            # Only add if we found a reasonably close level (dist threshold depends on res)
-            # 300 is a safe broad threshold for 1080p
-            if closest_level != "UNKNOWN_LEVEL" and min_dist < 400:
-                final_detections.append((name_obj["name"], closest_level, "E.G.O"))
-
-        return final_detections
+        return found_items
