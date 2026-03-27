@@ -34,8 +34,8 @@ jobs:
       - name: Create/Update Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: dev-windows-build
-          name: Windows Build (Development)
+          tag_name: build-${{ github.run_number }}-${{ github.sha }}
+          name: Windows Build (Development - Build ${{ github.run_number }})
           draft: false
           prerelease: true
           files: dist/LimbusCalculator.exe
