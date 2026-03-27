@@ -24,18 +24,34 @@ def recognition_loop(recognizer, tracker):
     for ego in tracker.progress.get('E.G.O.', []):
         ego_name_to_id[ego['name']] = ego['id']
 
+    # State tracking to avoid spamming the same detection
+    # { "E.G.O. ID": level }
+    last_detected_levels = {}
+
     while True:
         try:
             if tracker.ocr_enabled:
                 screen = recognizer.capture_screen()
-                item_name, new_level, _ = recognizer.detect_upgrade_event(screen)
+                detections = recognizer.detect_upgrade_event(screen)
 
-                if item_name != "UNKNOWN_ITEM" and new_level != "UNKNOWN_LEVEL":
+                for item_name, new_level, _ in detections:
                     item_id = ego_name_to_id.get(item_name)
                     if item_id:
-                        print(f"Detected upgrade: {item_name} ({item_id}) -> Level {new_level}")
-                        # Update the tracker.
-                        tracker.update_item_level('E.G.O.', item_id, new_level)
+                        # Check if this is a new detection or a level change
+                        if last_detected_levels.get(item_id) != new_level:
+                            # Also check tracker's current value to avoid redundant saves
+                            current_val = 0
+                            for ego in tracker.progress.get('E.G.O.', []):
+                                if ego['id'] == item_id:
+                                    current_val = ego.get('current_uptie', 0)
+                                    break
+                            
+                            if current_val != new_level:
+                                print(f"Detected upgrade: {item_name} ({item_id}) -> Level {new_level}")
+                                tracker.update_item_level('E.G.O.', item_id, new_level)
+                            
+                            # Update local state even if tracker was already correct
+                            last_detected_levels[item_id] = new_level
 
             # Sleep to reduce CPU usage
             time.sleep(1)
